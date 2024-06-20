@@ -4,6 +4,7 @@ import "./globals.css";
 import Link from "next/link";
 import Header from "./Components/Header";
 import Search from "./Components/Search";
+import Footer from "./Components/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,7 +25,9 @@ export default function RootLayout({
         </header>
         <Search />
         {children}
-        <footer>Footer</footer>
+        <footer>
+          <Footer />
+        </footer>
       </body>
     </html>
   );

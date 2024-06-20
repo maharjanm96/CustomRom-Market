@@ -8,3 +8,17 @@ nav {
   gap: 3rem;
   padding-right: 6rem;
 }
+
+/* styles/custom.css */
+
+.link-style {
+  @apply text-gray-700 hover:text-gray-900;
+}
+
+.container-style {
+  @apply flex flex-col md:flex-row justify-between items-center;
+}
+
+.column-style {
+  @apply flex flex-col items-center md:items-start space-y-2;
+}
