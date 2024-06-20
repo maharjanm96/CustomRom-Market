@@ -23,11 +23,11 @@ export default function RootLayout({
         <header>
           <Header />
         </header>
+
         <Search />
         {children}
-        <footer>
-          <Footer />
-        </footer>
+
+        <Footer />
       </body>
     </html>
   );
