@@ -5,9 +5,9 @@ import SearchIcon from "@mui/icons-material/Search";
 
 const Search = () => {
   return (
-    <div className="bg-gray-100 p-20 flex justify-center items-center">
-      <div className="w-full max-w-3xl">
-        <button className="w-full p-4 text-lg font-semibold border-2 rounded-lg focus:outline-none bg-white flex items-center hover:bg-gray-100 cursor-text ">
+    <div className="bg-white p-16 flex justify-center items-center ">
+      <div className="w-full max-w-2xl">
+        <button className="w-full p-2 text-lg border-2 rounded-lg focus:outline-none bg-white flex items-center hover:bg-gray-100 cursor-text ">
           <SearchIcon className="mr-2 " />
           Search a Device...
         </button>

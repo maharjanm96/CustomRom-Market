@@ -7,10 +7,11 @@ import EmailIcon from "@mui/icons-material/Email";
 import TelegramIcon from "@mui/icons-material/Telegram";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import FacebookIcon from "@mui/icons-material/Facebook";
+import { GitHub } from "@mui/icons-material";
 
 const Footer = () => {
   return (
-    <footer className="bg-white py-10 text-center">
+    <footer className="bg-white py-10 text-center ">
       <div className="container container-style">
         <div className="flex items-center mb-4 md:mb-0 pl-20">
           <div className="mr-auto">
@@ -22,7 +23,11 @@ const Footer = () => {
           <div className="column-style pr-20">
             <a href="#" className="link-style flex items-center">
               <PhoneIcon className="mr-2" />
-              9840390774
+              +977 9840390774
+            </a>
+            <a href="#" className="link-style flex items-center">
+              <GitHub className="mr-2" />
+              maharjanm96
             </a>
             <a href="#" className="link-style flex items-center">
               <InstagramIcon className="mr-2" />
@@ -34,10 +39,6 @@ const Footer = () => {
             </a>
             <a href="#" className="link-style flex items-center">
               <TelegramIcon className="mr-2" />
-              maharjanm96
-            </a>
-            <a href="#" className="link-style flex items-center">
-              <TwitterIcon className="mr-2" />
               maharjanm96
             </a>
             <a href="#" className="link-style flex items-center">

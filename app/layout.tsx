@@ -1,12 +1,11 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Open_Sans, Poppins } from "next/font/google";
 import "./globals.css";
-import Link from "next/link";
 import Header from "./Components/Header";
 import Search from "./Components/Search";
 import Footer from "./Components/Footer";
 
-const inter = Inter({ subsets: ["latin"] });
+const pop = Poppins({ subsets: ["latin"], weight: ["300", "500"] });
 
 export const metadata: Metadata = {
   title: "CustomRom Market",
@@ -19,14 +18,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <header>
-          <Header />
-        </header>
-
+      <body className={pop.className}>
+        <Header />
         <Search />
         {children}
-
         <Footer />
       </body>
     </html>
