@@ -3,6 +3,7 @@
 import React from "react";
 import { TypewriterEffectSmooth } from "./Components/ui/Typewriter-effect";
 import { ClassNames } from "@emotion/react";
+import Link from "next/link";
 
 export default function Home() {
   const words = [
@@ -49,9 +50,11 @@ export default function Home() {
       </p>
       <TypewriterEffectSmooth words={words} />
       <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 space-x-0 md:space-x-4">
-        <button className="w-40 h-10 rounded-xl bg-white border-2 text-black border-black text-sm">
-          Login
-        </button>
+        <Link href="/login">
+          <button className="w-40 h-10 rounded-xl bg-white border-2 text-black border-black text-sm">
+            Login
+          </button>
+        </Link>
         <button className="w-40 h-10 rounded-xl bg-black text-white border-2 border-black  text-sm">
           Signup
         </button>
