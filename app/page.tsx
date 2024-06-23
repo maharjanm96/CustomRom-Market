@@ -2,6 +2,7 @@
 
 import React from "react";
 import { TypewriterEffectSmooth } from "./Components/ui/Typewriter-effect";
+import { ClassNames } from "@emotion/react";
 
 export default function Home() {
   const words = [
@@ -14,12 +15,31 @@ export default function Home() {
     {
       text: "Of Your Device With",
     },
+    {
+      text: "CUSTOM",
+      className: "text-black",
+    },
     // {
-    //   text: "with",
+    //   text: (
+    //     <>
+    //       <span className="text-red-500">C</span>
+    //       <span className="text-blue-500">U</span>
+    //       <span className="text-green-500">S</span>
+    //       <span className="text-yellow-500">T</span>
+    //       <span className="text-red-500">O</span>
+    //       <span className="text-blue-500">M</span>
+    //     </>
+    //   ),
     // },
     {
-      text: "Custom ROMs.",
-      className: "text-blue-500 dark:text-blue-500",
+      text: (
+        <>
+          <span className="text-red-500">R</span>
+          <span className="text-blue-500">O</span>
+          <span className="text-green-500">M</span>
+          <span className="text-yellow-500">s</span>
+        </>
+      ),
     },
   ];
   return (
@@ -32,7 +52,7 @@ export default function Home() {
         <button className="w-40 h-10 rounded-xl bg-white border-2 text-black border-black text-sm">
           Login
         </button>
-        <button className="w-40 h-10 rounded-xl bg-black text-white border border-black  text-sm">
+        <button className="w-40 h-10 rounded-xl bg-black text-white border-2 border-black  text-sm">
           Signup
         </button>
       </div>

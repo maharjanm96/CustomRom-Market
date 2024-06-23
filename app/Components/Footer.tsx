@@ -1,13 +1,12 @@
 "use client";
 import React from "react";
 import Image from "next/image";
-import PhoneIcon from "@mui/icons-material/Phone";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import EmailIcon from "@mui/icons-material/Email";
 import TelegramIcon from "@mui/icons-material/Telegram";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import FacebookIcon from "@mui/icons-material/Facebook";
-import { GitHub } from "@mui/icons-material";
+import { GitHub, WhatsApp } from "@mui/icons-material";
 
 const Footer = () => {
   return (
@@ -22,8 +21,8 @@ const Footer = () => {
         <div className="flex flex-wrap justify-center md:justify-end space-x-8">
           <div className="column-style pr-20">
             <a href="#" className="link-style flex items-center">
-              <PhoneIcon className="mr-2" />
-              +977 9840390774
+              <WhatsApp className="mr-2" />
+              9840390774
             </a>
             <a href="#" className="link-style flex items-center">
               <GitHub className="mr-2" />
