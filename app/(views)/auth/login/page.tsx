@@ -1,5 +1,4 @@
-
-import LoginAuth from "@/app/Components/Auth";
+import { LoginAuth } from "@/app/Components/Auth";
 import React from "react";
 
 const Login = () => {

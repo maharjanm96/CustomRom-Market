@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Open_Sans, Poppins } from "next/font/google";
+import { Poppins } from "next/font/google";
 import "./globals.css";
 import Header from "./Components/Header";
 import Search from "./Components/Search";
@@ -20,7 +20,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={pop.className}>
         <Header />
-        <Search />
+        {/* <Search /> */}
         {children}
         <Footer />
       </body>
