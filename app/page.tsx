@@ -1,8 +1,8 @@
 "use client";
-
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import React from "react";
 import { TypewriterEffectSmooth } from "./Components/ui/Typewriter-effect";
-import { ClassNames } from "@emotion/react";
 import Link from "next/link";
 
 export default function Home() {
@@ -20,18 +20,6 @@ export default function Home() {
       text: "CUSTOM",
       className: "text-black",
     },
-    // {
-    //   text: (
-    //     <>
-    //       <span className="text-red-500">C</span>
-    //       <span className="text-blue-500">U</span>
-    //       <span className="text-green-500">S</span>
-    //       <span className="text-yellow-500">T</span>
-    //       <span className="text-red-500">O</span>
-    //       <span className="text-blue-500">M</span>
-    //     </>
-    //   ),
-    // },
     {
       text: (
         <>
@@ -61,6 +49,7 @@ export default function Home() {
           </button>
         </Link>
       </div>
+      <ToastContainer />
     </div>
   );
 }

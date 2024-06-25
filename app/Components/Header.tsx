@@ -11,10 +11,12 @@ import SmartphoneOutlinedIcon from "@mui/icons-material/SmartphoneOutlined";
 const Header = () => {
   return (
     <header className="flex justify-between items-center p-8 bg-white z-20">
-      <div className="flex items-center space-x-2 pl-20 cursor-pointer">
-        <Image src="/assets/logo.png" alt="Logo" width={30} height={30} />
-        <span className="text-xl font-semibold">CustomRom Market</span>
-      </div>
+      <Link href="/">
+        <div className="flex items-center space-x-2 pl-20 cursor-pointer">
+          <Image src="/assets/logo.png" alt="Logo" width={30} height={30} />
+          <span className="text-xl font-semibold">CustomRom Market</span>
+        </div>
+      </Link>
       <nav className="flex space-x-4">
         <Link href="/" className="flex items-center space-x-1">
           <HomeOutlinedIcon style={{ fontSize: 25 }} />

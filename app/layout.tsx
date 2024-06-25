@@ -20,7 +20,6 @@ export default function RootLayout({
     <html lang="en">
       <body className={pop.className}>
         <Header />
-        {/* <Search /> */}
         {children}
         <Footer />
       </body>
