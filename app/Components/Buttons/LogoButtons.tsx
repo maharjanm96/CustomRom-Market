@@ -16,7 +16,7 @@ const LogoButton: React.FC<ButtonWithLogo> = ({
     <div>
       <button
         type="submit"
-        className="w-full bg-black text-white py-2 flex items-center justify-center rounded-lg border-2 border-black"
+        className="w-full bg-black text-sm text-white py-2 flex items-center justify-center rounded-lg border border-black"
       >
         <Image
           src={logoSrc}

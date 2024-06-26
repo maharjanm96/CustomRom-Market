@@ -1,6 +1,5 @@
 "use client";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+
 import React from "react";
 import { TypewriterEffectSmooth } from "./Components/ui/Typewriter-effect";
 import Link from "next/link";
@@ -49,7 +48,7 @@ export default function Home() {
           </button>
         </Link>
       </div>
-      <ToastContainer />
+     
     </div>
   );
 }

@@ -10,6 +10,7 @@ export async function POST(req: NextRequest) {
 
   const existingUser = await UserModel.findOne({ email });
   if (existingUser) {
+    console.log("User already exists");
     return NextResponse.json(
       { message: "User already exists" },
       { status: 400 }
@@ -26,6 +27,7 @@ export async function POST(req: NextRequest) {
 
   try {
     await newUser.save();
+    console.log("User created successfully");
     return NextResponse.json(
       { message: "User created successfully" },
       { status: 201 }
