@@ -1,55 +1,77 @@
 "use client";
 import React from "react";
 import Image from "next/image";
-import InstagramIcon from "@mui/icons-material/Instagram";
-import EmailIcon from "@mui/icons-material/Email";
-import TelegramIcon from "@mui/icons-material/Telegram";
-import FacebookIcon from "@mui/icons-material/Facebook";
-import { GitHub, WhatsApp } from "@mui/icons-material";
+import {
+  FaInstagram,
+  FaEnvelope,
+  FaTelegram,
+  FaFacebook,
+  FaGithub,
+  FaWhatsapp,
+} from "react-icons/fa";
+
+const contactLinks = [
+  {
+    icon: <FaWhatsapp className="mr-2" />,
+    text: "9840390774",
+    href: "#",
+  },
+  {
+    icon: <FaGithub className="mr-2" />,
+    text: "maharjanm96",
+    href: "#",
+  },
+  {
+    icon: <FaInstagram className="mr-2" />,
+    text: "manee_mrzn",
+    href: "#",
+  },
+  {
+    icon: <FaEnvelope className="mr-2" />,
+    text: "maharjanm96@gmail.com",
+    href: "#",
+  },
+  {
+    icon: <FaTelegram className="mr-2" />,
+    text: "maharjanm96",
+    href: "#",
+  },
+  {
+    icon: <FaFacebook className="mr-2" />,
+    text: "मनिष महर्जन",
+    href: "#",
+  },
+];
 
 const Footer = () => {
   return (
     <footer className="bg-white py-10 text-center ">
       <div className="container container-style">
         <div className="flex items-center ">
-          <div className="p-4">
+          <div className="m-4">
             <Image src="/assets/logo.png" alt="Logo" width={30} height={30} />
           </div>
           <span className="text-xl font-bold">CustomRom Market</span>
         </div>
-        <div className="flex flex-wrap justify-end ">
+        <div className="flex flex-wrap justify-end">
           <div className="column-style">
-            <a href="#" className="link-style flex items-center">
-              <WhatsApp className="mr-2" />
-              9840390774
-            </a>
-            <a href="#" className="link-style flex items-center">
-              <GitHub className="mr-2" />
-              maharjanm96
-            </a>
-            <a href="#" className="link-style flex items-center">
-              <InstagramIcon className="mr-2" />
-              manee_mrzn
-            </a>
-            <a href="#" className="link-style flex items-center">
-              <EmailIcon className="mr-2" />
-              maharjanm96@gmail.com
-            </a>
-            <a href="#" className="link-style flex items-center">
-              <TelegramIcon className="mr-2" />
-              maharjanm96
-            </a>
-            <a href="#" className="link-style flex items-center">
-              <FacebookIcon className="mr-2" />
-              मनिष महर्जन
-            </a>
+            {contactLinks.map((link, index) => (
+              <a
+                key={index}
+                href={link.href}
+                className="link-style flex items-center"
+              >
+                {link.icon}
+                {link.text}
+              </a>
+            ))}
           </div>
         </div>
       </div>
       <div className="mt-8">
         <span className="text-gray-700">
           Project maintained by{" "}
-          <a href="#" className="text-blue-500 hover:underline">
+          <a className="text-blue-500 hover:underline cursor-pointer">
             Manish Maharjan
           </a>
         </span>
