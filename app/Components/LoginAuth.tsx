@@ -18,6 +18,7 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import { toast } from "sonner";
 import Link from "next/link";
+import Cookies from "js-cookie";
 
 const loginSchema = z.object({
   email: z.string().email({ message: "Invalid email address" }),
@@ -45,29 +46,22 @@ export function LoginAuth() {
         `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/login`,
         data
       );
-
       setLoading(false);
       toast.success("Login successful!");
-      router.push("/auth/login");
+      Cookies.set("token", response.data.token, { expires: 7 });
+      router.push("/device");
     } catch (err: any) {
       setLoading(false);
       if (err.response) {
-        form.setError("email", { message: err.response.data.email });
-        form.setError("password", { message: err.response.data.password });
-      } else if (err.formErrors) {
-        const formErrors = err.formErrors.fieldErrors;
-        if (formErrors.email) {
-          form.setError("email", { message: formErrors.email[0] });
-        }
-        if (formErrors.password) {
-          form.setError("password", { message: formErrors.password[0] });
-        }
+        toast.error(err.response.data.message || "Login failed");
+      } else {
+        toast.error("An unexpected error occurred");
       }
     }
   };
 
   return (
-    <div className="flex justify-center m-6">
+    <div className="flex justify-center mt-32">
       <div className="bg-white p-6 rounded-lg shadow-lg w-auto">
         <Form {...form}>
           <FormLabel className="flex justify-center text-2xl text-black font-bold py-2">
@@ -110,19 +104,7 @@ export function LoginAuth() {
             >
               {loading ? "Loggin in..." : "Login"}
             </Button>
-            {/* <FormLabel className="flex justify-center text-gray-500">
-              or continue with
-            </FormLabel> */}
-            {/* <LogoButton
-              logoSrc="/assets/google-logo.jpg"
-              altText="Google Logo"
-              buttonText="Google"
-            />
-            <LogoButton
-              logoSrc="/assets/github-logo.webp"
-              altText="GitHub Logo"
-              buttonText="GitHub"
-            /> */}
+
             <span className="flex justify-center text-sm mt-4">
               Don't have an account ?
             </span>

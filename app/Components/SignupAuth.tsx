@@ -74,7 +74,7 @@ export function SignupAuth() {
   };
 
   return (
-    <div className="flex justify-center m-6 ">
+    <div className="flex justify-center mt-28 ">
       <div className="bg-white p-6 rounded-lg shadow-lg w-auto ">
         <Form {...form}>
           <FormLabel className="flex justify-center text-2xl text-black font-bold py-2">
