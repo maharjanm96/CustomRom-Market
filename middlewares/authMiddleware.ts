@@ -1,10 +1,9 @@
-// src/middleware.ts
-
 import { NextResponse } from "next/server";
 import { NextRequest } from "next/server";
 import jwt from "jsonwebtoken";
 
-const JWT_SECRET = "x8Xs9df5svg5j5iuksa551sa12c312a6X";
+// Ensure that JWT_SECRET_KEY is set and is a string
+const JWT_SECRET = process.env.JWT_SECRET_KEY || "Zfsdf45sdc8wec56zcb4g5s4r";
 
 export async function middleware(req: NextRequest) {
   const token =
