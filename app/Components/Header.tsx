@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -16,15 +16,30 @@ import { toast } from "sonner";
 
 const Header = () => {
   const router = useRouter();
-  const isAuthenticated = !!Cookies.get("token");
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    // Check the token on component mount
+    const token = Cookies.get("token");
+    setIsAuthenticated(!!token);
+
+    // Set up an interval to periodically check the cookie
+    const intervalId = setInterval(() => {
+      const token = Cookies.get("token");
+      setIsAuthenticated(!!token);
+    }, 1000); // Check every second
+
+    // Clean up interval on component unmount
+    return () => clearInterval(intervalId);
+  }, []);
 
   const handleLogout = () => {
     Cookies.remove("token");
-
     toast.success("Logged out successfully!");
-
+    setIsAuthenticated(false);
     router.push("/auth/login");
   };
+
   return (
     <header className="flex justify-between items-center m-8 bg-white">
       <Link href="/">
@@ -54,11 +69,7 @@ const Header = () => {
           <FaDollarSign style={{ fontSize: 20 }} />
           <span>Pricing</span>
         </Link>
-        {isAuthenticated ? (
-          <Logout handleLogout={handleLogout} />
-        ) : (
-          <span></span>
-        )}
+        {isAuthenticated && <Logout handleLogout={handleLogout} />}
       </nav>
     </header>
   );
