@@ -3,7 +3,7 @@ import { NextRequest } from "next/server";
 import jwt from "jsonwebtoken";
 
 // Ensure that JWT_SECRET_KEY is set and is a string
-const JWT_SECRET = process.env.JWT_SECRET_KEY || "Zfsdf45sdc8wec56zcb4g5s4r";
+const JWT_SECRET = process.env.JWT_SECRET_KEY || "";
 
 export async function middleware(req: NextRequest) {
   const token =
