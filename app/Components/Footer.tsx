@@ -45,7 +45,7 @@ const contactLinks = [
 
 const Footer = () => {
   return (
-    <footer className="bg-white py-10 text-center ">
+    <footer className="bg-white p-20 text-center ">
       <div className="container container-style">
         <div className="flex items-center ">
           <div className="m-4">

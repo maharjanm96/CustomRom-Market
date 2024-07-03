@@ -8,6 +8,8 @@ import {
   FaBook,
   FaDollarSign,
   FaMobileAlt,
+  FaBars,
+  FaTimes,
 } from "react-icons/fa";
 import Logout from "./Buttons/LogoutButton";
 import { useRouter } from "next/navigation";
@@ -17,19 +19,17 @@ import { toast } from "sonner";
 const Header = () => {
   const router = useRouter();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
-    // Check the token on component mount
     const token = Cookies.get("token");
     setIsAuthenticated(!!token);
 
-    // Set up an interval to periodically check the cookie
     const intervalId = setInterval(() => {
       const token = Cookies.get("token");
       setIsAuthenticated(!!token);
-    }, 1000); // Check every second
+    }, 1000);
 
-    // Clean up interval on component unmount
     return () => clearInterval(intervalId);
   }, []);
 
@@ -40,15 +40,30 @@ const Header = () => {
     router.push("/auth/login");
   };
 
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
   return (
-    <header className="flex justify-between items-center m-8 bg-white">
+    <header className="flex justify-between p-8 bg-white">
       <Link href="/">
-        <div className="flex items-center pl-20 cursor-pointer">
+        <div className="flex items-center cursor-pointer">
           <Image src="/assets/logo.png" alt="Logo" width={30} height={30} />
-          <span className="text-xl font-semibold">CustomRom Market</span>
+          <span className="lg:text-xl font-semibold px-2 sm:text-sm">
+            CustomRom Market
+          </span>
         </div>
       </Link>
-      <nav className="flex space-x-4 pr-8 gap-4">
+      <div className="md:hidden">
+        <button onClick={toggleMenu} className="text-2xl">
+          {isMenuOpen ? <FaTimes /> : <FaBars />}
+        </button>
+      </div>
+      <nav
+        className={`${
+          isMenuOpen ? "block" : "hidden"
+        } md:flex flex-col md:flex-row md:items-center space-y-6 md:space-y-0 md:space-x-4 mt-4 md:mt-0`}
+      >
         <Link href="/" className="flex items-center space-x-1">
           <FaHome style={{ fontSize: 22 }} />
           <span>Home</span>
