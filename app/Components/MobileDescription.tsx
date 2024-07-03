@@ -18,7 +18,7 @@ const MobileDescription = () => {
   };
 
   return (
-    <div className="flex flex-row justify-evenly items-center p-8">
+    <div className="flex flex-row justify-evenly items-start p-8">
       <div className="flex flex-col items-center">
         <Image
           src="/assets/poco.jpg"

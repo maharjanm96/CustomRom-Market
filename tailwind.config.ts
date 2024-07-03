@@ -8,8 +8,8 @@ const config: Config = {
   ],
   theme: {
     screens: {
-      xs: "480px", // Extra small devices
-      sm: "640px", // Small devices (landscape phones, 640px and up)
+      sm: "480px", // Extra small devices
+      //sm: "640px", // Small devices (landscape phones, 640px and up)
       md: "768px", // Medium devices (tablets, 768px and up)
       lg: "1024px", // Large devices (desktops, 1024px and up)
       xl: "1280px", // Extra large devices (large desktops, 1280px and up)

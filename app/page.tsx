@@ -48,7 +48,7 @@ export default function Home() {
     <div className="flex flex-col items-center justify-center h-[30rem]">
       <p className="text-black text-xl">The road to freedom starts from here</p>
       <TypewriterEffectSmooth words={words} />
-      <div className="lg:w-full flex gap-6 justify-center">
+      <div className="lg:flex lg:flex-row sm:flex sm:flex-col sm:items-center sm:justify-center w-full flex gap-6 justify-center ">
         {!isAuthenticated ? (
           <>
             <Link href="/auth/login">
