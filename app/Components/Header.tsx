@@ -10,6 +10,7 @@ import {
   FaMobileAlt,
   FaBars,
   FaTimes,
+  FaUser,
 } from "react-icons/fa";
 import Logout from "./Buttons/LogoutButton";
 import { useRouter } from "next/navigation";
@@ -73,16 +74,12 @@ const Header = () => {
           <span>Devices</span>
         </Link>
         <Link href="/" className="flex items-center space-x-1">
-          <FaNewspaper style={{ fontSize: 20 }} />
-          <span>News</span>
-        </Link>
-        <Link href="/" className="flex items-center space-x-1">
-          <FaBook style={{ fontSize: 18 }} />
-          <span>Library</span>
-        </Link>
-        <Link href="/" className="flex items-center space-x-1">
           <FaDollarSign style={{ fontSize: 20 }} />
           <span>Pricing</span>
+        </Link>
+        <Link href="/auth/user" className="flex items-center space-x-1">
+          <FaUser style={{ fontSize: 18 }} />
+          <span>Profile</span>
         </Link>
         {isAuthenticated && <Logout handleLogout={handleLogout} />}
       </nav>

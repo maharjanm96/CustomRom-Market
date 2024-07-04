@@ -2,7 +2,13 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-const Card = ({ title, description, downloads }: any) => {
+interface CardProps {
+  title: string;
+  description: string;
+  downloads: string;
+}
+
+const Card: React.FC<CardProps> = ({ title, description, downloads }) => {
   return (
     <Link href="/description">
       <div className="bg-white rounded-lg w-80 shadow-md overflow-hidden border-2 border-gray-200  hover:border-blue-400 flex flex-col items-center ">
