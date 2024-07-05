@@ -61,7 +61,7 @@ export function LoginAuth() {
   };
 
   return (
-    <div className="flex justify-center mt-32">
+    <div className="flex justify-center mt-16">
       <div className="bg-white p-6 rounded-lg shadow-lg w-auto">
         <Form {...form}>
           <FormLabel className="flex justify-center text-2xl text-black font-bold py-2">

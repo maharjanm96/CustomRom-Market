@@ -17,13 +17,13 @@ const buttonVariants = cva(
           "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
-        black: "bg-black text-white h-10 hover:bg-blue-700 text-sm ",
+        black: "bg-black text-white h-10 hover:bg-blue-400 text-sm ",
         white:
-          "bg-white text-gray-700 h-14 hover:bg-blue-700 text-md font-medium hover:text-white ",
+          "bg-white text-gray-700 h-14 hover:bg-blue-400 text-md font-medium hover:text-white ",
       },
       size: {
         default: "h-10 w-max px-4 py-2",
-        full: "w-full", // Added full width size
+        full: "w-full",
       },
     },
     defaultVariants: {
