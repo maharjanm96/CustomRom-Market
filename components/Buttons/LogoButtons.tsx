@@ -1,21 +1,26 @@
 // components/ButtonWithLogo.tsx
+import { signIn } from "next-auth/react";
 import Image from "next/image";
 
-interface ButtonWithLogo {
+interface ButtonWithLogoProps {
   logoSrc: string;
   altText: string;
   buttonText: string;
+  provider: "google" | "github";
 }
 
-const LogoButton: React.FC<ButtonWithLogo> = ({
+const LogoButton: React.FC<ButtonWithLogoProps> = ({
   logoSrc,
   altText,
   buttonText,
+  provider,
 }) => {
   return (
     <div>
       <button
-        type="submit"
+        onClick={() => {
+          signIn(provider);
+        }}
         className="w-full bg-black text-sm text-white py-2 flex items-center justify-center rounded-lg border border-black"
       >
         <Image

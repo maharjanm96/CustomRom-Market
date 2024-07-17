@@ -18,6 +18,8 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import { toast } from "sonner";
 import Link from "next/link";
+import LogoButton from "./Buttons/LogoButtons";
+import { signIn, useSession } from "next-auth/react";
 
 const loginSchema = z.object({
   email: z.string().email({ message: "Invalid email address" }),
@@ -58,62 +60,91 @@ export function LoginAuth() {
     }
   };
 
+  const { data: session } = useSession();
   return (
-    <div className="flex justify-center mt-16">
-      <div className="bg-white p-6 rounded-lg shadow-lg w-auto">
-        <Form {...form}>
-          <FormLabel className="flex justify-center text-2xl text-black font-bold py-2">
-            Login
-          </FormLabel>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Email</FormLabel>
-                  <FormControl>
-                    <Input placeholder="you@example.com" {...field} />
-                  </FormControl>
+    <>
+      {session ? (
+        router.replace("/device")
+      ) : (
+        <div className="flex justify-center mt-16">
+          <div className="bg-white p-6 rounded-lg shadow-lg w-auto">
+            <Form {...form}>
+              <FormLabel className="flex justify-center text-2xl text-black font-bold py-2">
+                Login
+              </FormLabel>
+              <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className="space-y-4"
+              >
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Email</FormLabel>
+                      <FormControl>
+                        <Input placeholder="you@example.com" {...field} />
+                      </FormControl>
 
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="password"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Password</FormLabel>
-                  <FormControl>
-                    <Input type="password" placeholder="••••••••" {...field} />
-                  </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="password"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Password</FormLabel>
+                      <FormControl>
+                        <Input
+                          type="password"
+                          placeholder="••••••••"
+                          {...field}
+                        />
+                      </FormControl>
 
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <Button
-              type="submit"
-              variant="black"
-              size="full"
-              disabled={loading}
-            >
-              {loading ? "Loggin in..." : "Login"}
-            </Button>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <Button
+                  type="submit"
+                  variant="black"
+                  size="full"
+                  disabled={loading}
+                >
+                  {loading ? "Loggin in..." : "Login"}
+                </Button>
 
-            <span className="flex justify-center text-sm mt-4">
-              Don't have an account ?
-            </span>
-            <Link href="/auth/signup">
-              <span className="text-sm flex justify-center cursor-pointer underline">
-                Sign Up!
-              </span>
-            </Link>
-          </form>
-        </Form>
-      </div>
-    </div>
+                <span className="flex justify-center text-sm mt-4">
+                  Don't have an account ?
+                </span>
+                <Link href="/auth/signup">
+                  <span className="text-sm flex justify-center cursor-pointer underline">
+                    Sign Up!
+                  </span>
+                </Link>
+                <FormLabel className="flex justify-center text-gray-500">
+                  or continue with
+                </FormLabel>
+                {/* <LogoButton
+                  logoSrc="/assets/google-logo.jpg"
+                  altText="Google Logo"
+                  buttonText="Google"
+                  provider="google"
+                /> */}
+                <LogoButton
+                  logoSrc="/assets/github-logo.webp"
+                  altText="GitHub Logo"
+                  buttonText="GitHub"
+                  provider="github"
+                />
+              </form>
+            </Form>
+          </div>
+        </div>
+      )}
+    </>
   );
 }

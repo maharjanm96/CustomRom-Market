@@ -3,9 +3,6 @@ import UserModel from "@/app/models/UserSchema";
 import bcrypt from "bcrypt";
 import { NextRequest, NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
-import { setCookie } from "cookies-next";
-
-const JWT_SECRET = "x8Xs9df5svg5j5iuksa551sa12c312a6X";
 
 export async function POST(req: NextRequest) {
   await dbConnect();
@@ -29,27 +26,13 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const token = jwt.sign({ userId: user._id }, JWT_SECRET, {
+    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET_KEY!, {
       expiresIn: "7d",
     });
 
     console.log("Login Success", "token:", token);
 
-    // Create a response and set a cookie with the user ID
-    const response = NextResponse.json(
-      { message: "Login Success" },
-      { status: 200 }
-    );
-    response.headers.set("Authorization", `Bearer ${token}`);
-
-    // Set the user ID cookie
-    setCookie("userID", user._id.toString(), {
-      req,
-      res: response,
-      maxAge: 60 * 60 * 24 * 7,
-    }); // 1 week expiry
-
-    return response;
+    return NextResponse.json({ message: "Login Success" }, { status: 200 });
   } catch (error) {
     console.error("Login error:", error);
     return NextResponse.json(

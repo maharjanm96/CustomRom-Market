@@ -1,13 +1,17 @@
-import { LogoutOutlined } from "@mui/icons-material";
+import { signOut } from "next-auth/react";
+import React from "react";
 
-interface Props {
-  handleLogout: () => void;
-}
-
-const Logout: React.FC<Props> = ({ handleLogout }) => {
+const LogoutButton = () => {
   return (
-    <LogoutOutlined onClick={handleLogout} style={{ cursor: "pointer" }} />
+    <button
+      className="border-2 text-center rounded-lg p-2 px-4 w-auto bg-black text-white"
+      onClick={() => {
+        signOut({ callbackUrl: `/` });
+      }}
+    >
+      Logout
+    </button>
   );
 };
 
-export default Logout;
+export default LogoutButton;

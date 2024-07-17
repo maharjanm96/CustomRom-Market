@@ -13,9 +13,12 @@ import {
 import Logout from "./Buttons/LogoutButton";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { useSession } from "next-auth/react";
+import LogoutButton from "./Buttons/LogoutButton";
 
 const Header = () => {
   const router = useRouter();
+  const { data: session } = useSession();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -70,6 +73,13 @@ const Header = () => {
           <FaUser style={{ fontSize: 18 }} />
           <span>Profile</span>
         </Link>
+        {session ? (
+          <>
+            <LogoutButton />
+          </>
+        ) : (
+          <></>
+        )}
       </nav>
     </header>
   );

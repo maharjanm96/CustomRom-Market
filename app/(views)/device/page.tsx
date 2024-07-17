@@ -3,7 +3,7 @@
 import MobileCard from "@/components/MobileCard";
 import Search from "@/components/Search";
 import { useSession } from "next-auth/react";
-import NotAuthorized from "../auth/notauthorized/page";
+import NotAuthorized from "@/app/(views)/notauthorized/page";
 
 const DevicePage = () => {
   const { data: session } = useSession();
