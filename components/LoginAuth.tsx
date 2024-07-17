@@ -18,7 +18,6 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import { toast } from "sonner";
 import Link from "next/link";
-import Cookies from "js-cookie";
 
 const loginSchema = z.object({
   email: z.string().email({ message: "Invalid email address" }),
@@ -43,12 +42,11 @@ export function LoginAuth() {
     try {
       setLoading(true);
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/login`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/auth/login`,
         data
       );
       setLoading(false);
       toast.success("Login successful!");
-      Cookies.set("token", response.data.token, { expires: 7 });
       router.push("/device");
     } catch (err: any) {
       setLoading(false);

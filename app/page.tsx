@@ -1,14 +1,13 @@
 "use client";
 
 import React from "react";
-import { TypewriterEffectSmooth } from "@/app/Components/ui/Typewriter-effect";
+import { TypewriterEffectSmooth } from "@/components/ui/Typewriter-effect";
 import Link from "next/link";
-import Cookies from "js-cookie";
-import CustomButton from "./Components/Buttons/Buttons";
-import router from "next/router";
+import CustomButton from "../components/Buttons/Buttons";
+import { useSession } from "next-auth/react";
 
 export default function Home() {
-  const isAuthenticated = !!Cookies.get("token");
+  const { data: session } = useSession();
 
   const words = [
     {
@@ -49,14 +48,13 @@ export default function Home() {
       <p className="text-black text-xl">The road to freedom starts from here</p>
       <TypewriterEffectSmooth words={words} />
       <div className="lg:flex lg:flex-row sm:flex sm:flex-col sm:items-center sm:justify-center w-full flex gap-6 justify-center ">
-        {!isAuthenticated ? (
+        {!session ? (
           <>
             <Link href="/auth/login">
               <CustomButton
                 name="Login"
                 bgColor="bg-white"
                 textColor="text-black"
-                //onClick={() => router.push("/auth/login")}
               />
             </Link>
 
@@ -65,7 +63,6 @@ export default function Home() {
                 name="SignUp"
                 bgColor="bg-black"
                 textColor="text-white"
-                //onClick={() => router.push("/auth/login")}
               />
             </Link>
           </>

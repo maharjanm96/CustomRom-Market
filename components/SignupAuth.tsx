@@ -57,7 +57,7 @@ export function SignupAuth() {
     try {
       setLoading(true);
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/signup`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/auth/signup`,
         data
       );
       setLoading(false);

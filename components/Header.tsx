@@ -13,30 +13,10 @@ import {
 import Logout from "./Buttons/LogoutButton";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { isLoggedIn } from "@/app/utils/isLoggedIn";
-import Cookies from "js-cookie";
 
 const Header = () => {
   const router = useRouter();
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  useEffect(() => {
-    setIsAuthenticated(isLoggedIn());
-
-    const intervalId = setInterval(() => {
-      setIsAuthenticated(isLoggedIn());
-    }, 1000);
-
-    return () => clearInterval(intervalId);
-  }, []);
-
-  const handleLogout = () => {
-    Cookies.remove("token");
-    toast.success("Logged out successfully!");
-    setIsAuthenticated(false);
-    router.push("/auth/login");
-  };
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -90,7 +70,6 @@ const Header = () => {
           <FaUser style={{ fontSize: 18 }} />
           <span>Profile</span>
         </Link>
-        {isAuthenticated && <Logout handleLogout={handleLogout} />}
       </nav>
     </header>
   );

@@ -1,9 +1,10 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import { useRouter } from "next/navigation"; // Import useRouter from next/router
 import axios from "axios";
-import UserProfileComponent from "@/app/Components/UserProfileComponent";
-import { getCookie } from "cookies-next";
+import UserProfileComponent from "@/components/UserProfileComponent";
+import { useSearchParams } from "next/navigation";
 
 interface UserData {
   profilePicture: string;
@@ -13,16 +14,19 @@ interface UserData {
 }
 
 const UserPage = () => {
+  const router = useRouter();
+  // const profilePicture = "/assets/github-logo.webp";
+  const searchParams = useSearchParams();
+  let id = searchParams.get("id");
+
   const [userData, setUserData] = useState<UserData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const userID = getCookie("userID");
-
-    if (userID) {
+    if (id) {
       axios
-        .get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/user?id=${userID}`)
+        .get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/user?id=${id}`)
         .then((response) => {
           const data = response.data;
           if (response.status === 200) {
@@ -37,11 +41,8 @@ const UserPage = () => {
           setError("Error fetching user data");
           setLoading(false);
         });
-    } else {
-      setError("No user ID found in cookies");
-      setLoading(false);
     }
-  }, []);
+  }, [id]);
 
   if (loading) {
     return <p>Loading...</p>;
@@ -58,6 +59,7 @@ const UserPage = () => {
   return (
     <div className="container mx-auto p-4">
       <UserProfileComponent
+        // profilePicture={userData.profilePicture}
         email={userData.email}
         name={userData.name}
         contact={userData.contact}

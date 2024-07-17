@@ -1,10 +1,10 @@
 import React from "react";
-import MobileDescription from "../../Components/MobileDescription";
-import Search from "@/app/Components/Search";
+import MobileDescription from "../../../components/MobileDescription";
+import Search from "@/components/Search";
 const Description = () => {
   return (
     <>
-      <Search/>
+      <Search />
       <MobileDescription />
     </>
   );
