@@ -1,8 +1,7 @@
 "use client";
-
+import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -14,49 +13,45 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
-import axios from "axios";
-import { toast } from "sonner";
 import Link from "next/link";
-import LogoButton from "./Buttons/LogoButtons";
-import { signIn, useSession } from "next-auth/react";
+import { LoginSchema } from "@/schemas";
+import { login } from "@/actions/login";
+import { useSearchParams } from "next/navigation";
 
-const loginSchema = z.object({
-  email: z.string().email({ message: "Invalid email address" }),
-  password: z
-    .string()
-    .min(6, { message: "Password must be at least 6 characters long" }),
-});
-
-export function LoginAuth() {
+export function LoginForm() {
   const [loading, setLoading] = useState(false);
-  const router = useRouter();
+  const [error, setError] = useState<string | undefined>("");
 
-  const form = useForm<z.infer<typeof loginSchema>>({
-    resolver: zodResolver(loginSchema),
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get("callbackUrl") || "/user";
+
+  const form = useForm<z.infer<typeof LoginSchema>>({
+    resolver: zodResolver(LoginSchema),
     defaultValues: {
       email: "",
       password: "",
     },
   });
 
-  const onSubmit = async (data: z.infer<typeof loginSchema>) => {
+  const onSubmit = async (values: z.infer<typeof LoginSchema>) => {
+    setLoading(true);
+    setError("");
+
     try {
-      setLoading(true);
-      const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/auth/login`,
-        data
-      );
-      setLoading(false);
-      toast.success("Login successful!");
-      router.push("/device");
-    } catch (err: any) {
-      setLoading(false);
-      if (err.response) {
-        toast.error(err.response.data.message || "Login failed");
+      const result = await login(values, callbackUrl);
+      console.log(result); // Add this line to check the response
+
+      if (result?.error) {
+        setError(result.error);
+        form.reset();
       } else {
-        toast.error("An unexpected error occurred");
+        // Redirect the user upon successful login
+        window.location.href = callbackUrl;
       }
+    } catch (err) {
+      setError("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -75,9 +70,12 @@ export function LoginAuth() {
                 <FormItem>
                   <FormLabel>Email</FormLabel>
                   <FormControl>
-                    <Input placeholder="you@example.com" {...field} />
+                    <Input
+                      placeholder="you@example.com"
+                      {...field}
+                      type="email"
+                    />
                   </FormControl>
-
                   <FormMessage />
                 </FormItem>
               )}
@@ -91,22 +89,22 @@ export function LoginAuth() {
                   <FormControl>
                     <Input type="password" placeholder="••••••••" {...field} />
                   </FormControl>
-
                   <FormMessage />
                 </FormItem>
               )}
             />
+            {error && <div className="text-red-500">{error}</div>}
             <Button
               type="submit"
               variant="black"
               size="full"
               disabled={loading}
             >
-              {loading ? "Loggin in..." : "Login"}
+              {loading ? "Logging in..." : "Login"}
             </Button>
 
             <span className="flex justify-center text-sm mt-4">
-              Don't have an account ?
+              Don't have an account?
             </span>
             <Link href="/auth/signup">
               <span className="text-sm flex justify-center cursor-pointer underline">
@@ -116,20 +114,10 @@ export function LoginAuth() {
             <FormLabel className="flex justify-center text-gray-500">
               or continue with
             </FormLabel>
-            {/* <LogoButton
-                  logoSrc="/assets/google-logo.jpg"
-                  altText="Google Logo"
-                  buttonText="Google"
-                  provider="google"
-                /> */}
-            <LogoButton
-              logoSrc="/assets/github-logo.webp"
-              altText="GitHub Logo"
-              buttonText="GitHub"
-              provider="github"
-            />
           </form>
         </Form>
+        <div className="mt-2"></div>
+        {/* You can add your social login buttons here */}
       </div>
     </div>
   );

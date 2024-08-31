@@ -1,53 +1,52 @@
-import dbConnect from "@/lib/database";
-import UserModel from "@/app/models/UserSchema";
+import Users from "@/models/Users";
 import { NextRequest, NextResponse } from "next/server";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
+import connectMongo from "@/lib/database";
 
 export async function POST(req: NextRequest) {
-  await dbConnect();
+  console.log("Running post request: Signup");
 
-  const { name, contact, email, password } = await req.json();
   try {
-    const existingEmail = await UserModel.findOne({ email });
-    if (existingEmail) {
-      console.log("User with email already exists");
-      return NextResponse.json(
-        { message: "User with email already exists" },
-        { status: 400 }
-      );
+    const { name, contact, email, password } = await req.json();
+
+    await connectMongo();
+    console.log("MongoDB connected");
+
+    const existingUser = await Users.findOne({
+      $or: [{ email }, { contact }],
+    });
+
+    if (existingUser) {
+      console.log("Already Exists");
+      return NextResponse.json({ message: "Already Exists" }, { status: 400 });
     }
 
-    const existingContact = await UserModel.findOne({ contact });
-    if (existingContact) {
-      console.log("Contact already exists");
-      return NextResponse.json(
-        {
-          message: "Contact already exists",
-        },
-        { status: 400 }
-      );
-    }
+    const hashedPassword = await bcrypt.hash(password, 10);
 
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
-
-    const newUser = new UserModel({
+    const newUser = new Users({
       name,
       contact,
       email,
       password: hashedPassword,
     });
 
-    await newUser.save();
-    console.log("User created successfully");
-    return NextResponse.json(
-      { message: "User created successfully", data: newUser },
-      { status: 201 }
-    );
-  } catch (error) {
-    return NextResponse.json(
-      { message: "Error creating user", error },
-      { status: 500 }
-    );
+    try {
+      await newUser.save();
+      console.log("New user added");
+
+      return NextResponse.json(
+        { message: "Signup Successful!" },
+        { status: 201 }
+      );
+    } catch (error) {
+      console.error("User creation failed", error);
+      return NextResponse.json(
+        { error: "User creation failed" },
+        { status: 500 }
+      );
+    }
+  } catch (error: any) {
+    console.error("An error occurred", error);
+    return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }

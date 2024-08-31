@@ -1,11 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
-import UserModel from "@/app/models/UserSchema";
+import Users from "@/models/Users";
 
 export async function GET(req: NextRequest) {
   const userID = req.nextUrl.searchParams.get("id");
 
   try {
-    const user = await UserModel.findOne({ _id: userID }, { password: 0 });
+    const user = await Users.findOne({ _id: userID }, { password: 0 });
 
     if (user) {
       return NextResponse.json(user, { status: 200 });

@@ -4,11 +4,8 @@ import React from "react";
 import { TypewriterEffectSmooth } from "@/components/ui/Typewriter-effect";
 import Link from "next/link";
 import CustomButton from "../components/Buttons/Buttons";
-import { useSession } from "next-auth/react";
 
 export default function Home() {
-  const { data: session } = useSession();
-
   const words = [
     {
       text: "Unlock The",
@@ -48,27 +45,21 @@ export default function Home() {
       <p className="text-black text-xl">The road to freedom starts from here</p>
       <TypewriterEffectSmooth words={words} />
       <div className="lg:flex lg:flex-row sm:flex sm:flex-col sm:items-center sm:justify-center w-full flex gap-6 justify-center ">
-        {!session ? (
-          <>
-            <Link href="/auth/login">
-              <CustomButton
-                name="Login"
-                bgColor="bg-white"
-                textColor="text-black"
-              />
-            </Link>
+        <Link href="/auth/login">
+          <CustomButton
+            name="Login"
+            bgColor="bg-white"
+            textColor="text-black"
+          />
+        </Link>
 
-            <Link href="/auth/signup">
-              <CustomButton
-                name="SignUp"
-                bgColor="bg-black"
-                textColor="text-white"
-              />
-            </Link>
-          </>
-        ) : (
-          <span></span>
-        )}
+        <Link href="/auth/signup">
+          <CustomButton
+            name="SignUp"
+            bgColor="bg-black"
+            textColor="text-white"
+          />
+        </Link>
       </div>
     </div>
   );

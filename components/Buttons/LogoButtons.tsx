@@ -19,7 +19,7 @@ const LogoButton: React.FC<ButtonWithLogoProps> = ({
     <div>
       <button
         onClick={() => {
-          signIn(provider);
+          signIn();
         }}
         className="w-full bg-black text-sm text-white py-2 flex items-center justify-center rounded-lg border border-black"
       >

@@ -17,7 +17,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import { toast } from "sonner";
-import LogoButton from "./Buttons/LogoButtons";
+// import LogoButton from "./Buttons/LogoButtons";
 import Link from "next/link";
 
 const signupSchema = z.object({
@@ -39,7 +39,7 @@ const signupSchema = z.object({
 
 type SignupFormData = z.infer<typeof signupSchema>;
 
-export function SignupAuth() {
+const SignupForm = () => {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
@@ -56,7 +56,7 @@ export function SignupAuth() {
   const onSubmit = async (data: SignupFormData) => {
     try {
       setLoading(true);
-      const response = await axios.post(
+      await axios.post(
         `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/auth/signup`,
         data
       );
@@ -158,19 +158,21 @@ export function SignupAuth() {
             >
               {loading ? "Signing up..." : "Sign Up"}
             </Button>
-            <FormLabel className="flex justify-center text-gray-500">
+            {/* <FormLabel className="flex justify-center text-gray-500">
               or continue with
-            </FormLabel>
-            <LogoButton
+            </FormLabel> */}
+            {/* <LogoButton
               logoSrc="/assets/google-logo.jpg"
               altText="Google Logo"
               buttonText="Google"
+              provider="google"
             />
             <LogoButton
               logoSrc="/assets/github-logo.webp"
               altText="GitHub Logo"
               buttonText="GitHub"
-            />
+              provider="github"
+            /> */}
             <span className="flex justify-center text-sm mt-4">
               Already have an account?
             </span>
@@ -184,4 +186,6 @@ export function SignupAuth() {
       </div>
     </div>
   );
-}
+};
+
+export default SignupForm;
