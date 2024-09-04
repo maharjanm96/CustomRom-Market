@@ -1,6 +1,6 @@
 import { Schema, model, models } from "mongoose";
 
-const UserRole = {
+const UserType = {
   ADMIN: "ADMIN",
   USER: "USER",
 };
@@ -11,7 +11,7 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
-    contact: { type: String, required: true },
+    contact: { type: String },
     email: {
       type: String,
       required: [true, "Email is required"],
@@ -19,12 +19,11 @@ const userSchema = new Schema(
     },
     password: {
       type: String,
-      required: [true, "Password is required"],
     },
-    userRole: {
+    userType: {
       type: String,
-      enum: Object.values(UserRole),
-      default: UserRole.USER,
+      enum: Object.values(UserType),
+      default: UserType.USER,
     },
     isVerified: {
       type: Boolean,

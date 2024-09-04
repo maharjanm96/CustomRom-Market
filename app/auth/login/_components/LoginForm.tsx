@@ -17,6 +17,7 @@ import Link from "next/link";
 import { LoginSchema } from "@/schemas";
 import { login } from "@/actions/login";
 import { useSearchParams } from "next/navigation";
+import SocialButton from "@/components/Buttons/SocialButton";
 
 export function LoginForm() {
   const [loading, setLoading] = useState(false);
@@ -118,6 +119,7 @@ export function LoginForm() {
         </Form>
         <div className="mt-2"></div>
         {/* You can add your social login buttons here */}
+        <SocialButton buttonText={"Google"} provider={"google"} />
       </div>
     </div>
   );
