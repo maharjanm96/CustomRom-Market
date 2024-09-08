@@ -3,6 +3,8 @@ import connectMongo from "@/lib/database";
 import Devices from "@/models/Devices/Devices";
 import { NextRequest, NextResponse } from "next/server";
 
+export const dynamic = "force-dynamic";
+
 export const GET = async (request: NextRequest) => {
   console.log("Running GET request:ADMIN Get Device by id");
   const user = await currentRole();
