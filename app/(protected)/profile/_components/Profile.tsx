@@ -1,10 +1,12 @@
 import { logout } from "@/actions/logout";
+import { auth } from "@/auth";
 import React from "react";
 
-const ProfileCard = () => {
+const ProfileCard = async () => {
+  const session = await auth();
   return (
     <div className="flex flex-col justify-center items-center">
-      ProfileCard
+      {session?.user?.email}, {session?.user?.name}
       <div>
         <form action={logout}>
           <button

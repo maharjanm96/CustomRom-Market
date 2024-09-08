@@ -33,29 +33,32 @@ export function LoginForm() {
     },
   });
 
-  async function onSubmit(values: z.infer<typeof LoginSchema>) {
+  const onSubmit = async (values: z.infer<typeof LoginSchema>) => {
+    setLoading(true);
+    const formData = {
+      email: values.email.toLowerCase(),
+      password: values.password,
+    };
+
     try {
-      setLoading(true);
-      const formData = {
-        email: values.email.toLowerCase(),
-        password: values.password,
-      };
-      await login(formData, callbackUrl).then((response) => {
-        if (!response) {
-          toast.success("Welcome to ROM Market");
-        }
-        if (response?.error) {
-          toast.error(response.error);
-        }
-        setLoading(false);
-      });
-    } catch (error: any) {
-      toast.error(`${error.message}`);
-      setLoading(false);
+      const response = await login(formData, callbackUrl);
+
+      if (response?.error) {
+        toast.error(response.error);
+      } else {
+        toast.success("Welcome to ROM Market");
+      }
+    } catch (error) {
+      toast.error(
+        `An error occurred: ${
+          error instanceof Error ? error.message : "Unknown error"
+        }`
+      );
     } finally {
       setLoading(false);
     }
-  }
+  };
+
   return (
     <div className="flex justify-center mt-16">
       <div className="bg-white p-6 rounded-lg shadow-lg w-auto">
@@ -100,7 +103,7 @@ export function LoginForm() {
               type="submit"
               className="w-full"
             >
-              Login
+              {loading ? "Logging in..." : "Login"}
             </Button>
 
             <span className="flex justify-center text-sm mt-4">
