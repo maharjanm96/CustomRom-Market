@@ -104,8 +104,9 @@ export function LoginForm() {
             </Button>
 
             <span className="flex justify-center text-sm mt-4">
-              Don't have an account?
+              Don&apos;t have an account?
             </span>
+
             <Link href="/auth/signup">
               <span className="text-sm flex justify-center cursor-pointer underline">
                 Sign Up!
