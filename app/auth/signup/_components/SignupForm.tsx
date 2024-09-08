@@ -19,6 +19,7 @@ import axios from "axios";
 import { toast } from "sonner";
 // import LogoButton from "./Buttons/LogoButtons";
 import Link from "next/link";
+import SocialButton from "@/components/Buttons/SocialButton";
 
 const signupSchema = z.object({
   name: z
@@ -94,8 +95,8 @@ const SignupForm = () => {
     <div className="flex justify-center">
       <div className="bg-white p-6 rounded-lg shadow-lg w-auto">
         <Form {...form}>
-          <FormLabel className="flex justify-center text-2xl font-bold py-1">
-            Sign Up
+          <FormLabel className="flex justify-start text-2xl font-bold py-1">
+            Create an account
           </FormLabel>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             <FormField
@@ -105,7 +106,7 @@ const SignupForm = () => {
                 <FormItem>
                   <FormLabel>Name</FormLabel>
                   <FormControl>
-                    <Input placeholder="Full Name" {...field} />
+                    <Input placeholder="John Doe" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -131,7 +132,7 @@ const SignupForm = () => {
                 <FormItem>
                   <FormLabel>Email</FormLabel>
                   <FormControl>
-                    <Input placeholder="you@example.com" {...field} />
+                    <Input placeholder="example@example.com" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -150,29 +151,10 @@ const SignupForm = () => {
                 </FormItem>
               )}
             />
-            <Button
-              type="submit"
-              variant="black"
-              size="full"
-              disabled={loading}
-            >
-              {loading ? "Signing up..." : "Sign Up"}
+            <Button className="w-full" size="lg" disabled={loading}>
+              {loading ? "Creating..." : "Create Account"}
             </Button>
-            {/* <FormLabel className="flex justify-center text-gray-500">
-              or continue with
-            </FormLabel> */}
-            {/* <LogoButton
-              logoSrc="/assets/google-logo.jpg"
-              altText="Google Logo"
-              buttonText="Google"
-              provider="google"
-            />
-            <LogoButton
-              logoSrc="/assets/github-logo.webp"
-              altText="GitHub Logo"
-              buttonText="GitHub"
-              provider="github"
-            /> */}
+
             <span className="flex justify-center text-sm mt-4">
               Already have an account?
             </span>
@@ -181,7 +163,14 @@ const SignupForm = () => {
                 Login!
               </span>
             </Link>
+            <FormLabel className="flex justify-center text-gray-700">
+              or continue with
+            </FormLabel>
           </form>
+          <div className="mt-2"></div>
+          <SocialButton buttonText={"Google"} provider={"google"} />
+          <div className="mt-2"></div>
+          <SocialButton buttonText="Github" provider="github" />
         </Form>
       </div>
     </div>

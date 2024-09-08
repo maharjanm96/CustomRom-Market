@@ -24,7 +24,7 @@ export function LoginForm() {
   const [error, setError] = useState<string | undefined>("");
 
   const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get("callbackUrl") || "/user";
+  const callbackUrl = searchParams.get("callbackUrl");
 
   const form = useForm<z.infer<typeof LoginSchema>>({
     resolver: zodResolver(LoginSchema),
@@ -45,9 +45,6 @@ export function LoginForm() {
       if (result?.error) {
         setError(result.error);
         form.reset();
-      } else {
-        // Redirect the user upon successful login
-        window.location.href = callbackUrl;
       }
     } catch (err) {
       setError("Something went wrong. Please try again.");
@@ -60,7 +57,7 @@ export function LoginForm() {
     <div className="flex justify-center mt-16">
       <div className="bg-white p-6 rounded-lg shadow-lg w-auto">
         <Form {...form}>
-          <FormLabel className="flex justify-center text-2xl text-black font-bold py-2">
+          <FormLabel className="flex justify-start text-3xl text-black font-bold py-2">
             Login
           </FormLabel>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
@@ -72,7 +69,7 @@ export function LoginForm() {
                   <FormLabel>Email</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="you@example.com"
+                      placeholder="example@example.com"
                       {...field}
                       type="email"
                     />
@@ -95,12 +92,7 @@ export function LoginForm() {
               )}
             />
             {error && <div className="text-red-500">{error}</div>}
-            <Button
-              type="submit"
-              variant="black"
-              size="full"
-              disabled={loading}
-            >
+            <Button className="w-full" size="lg" disabled={loading}>
               {loading ? "Logging in..." : "Login"}
             </Button>
 

@@ -1,4 +1,4 @@
-import { Schema, model, models } from "mongoose";
+import { Schema, model, models, Model } from "mongoose";
 
 const UserType = {
   ADMIN: "ADMIN",
@@ -41,6 +41,11 @@ const userSchema = new Schema(
   { strict: false }
 );
 
-const Users = models.Users || model("Users", userSchema, "Users");
+let Users: Model<any>;
+try {
+  Users = models.Users || model("Users", userSchema, "Users");
+} catch (error) {
+  Users = model("Users", userSchema, "Users");
+}
 
 export default Users;
