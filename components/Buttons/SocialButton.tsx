@@ -1,7 +1,6 @@
-// components/ButtonWithLogo.tsx
 import { signIn } from "next-auth/react";
 import { FC } from "react";
-import { FaGoogle, FaGithub } from "react-icons/fa"; // Importing icons from react-icons
+import { FaGoogle, FaGithub } from "react-icons/fa";
 
 interface ButtonWithLogoProps {
   buttonText: string;
@@ -24,7 +23,7 @@ const SocialButton: FC<ButtonWithLogoProps> = ({ buttonText, provider }) => {
     <div>
       <button
         onClick={() => signIn(provider)}
-        className="w-full bg-black text-sm text-white py-2 flex items-center justify-center rounded-lg border border-black hover:bg-gray-800"
+        className="bg-primary text-primary-foreground hover:bg-primary/90 w-full flex p-2.5 items-start justify-center rounded-md text-sm"
       >
         {renderLogo()}
         {buttonText}

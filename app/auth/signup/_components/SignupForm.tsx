@@ -93,7 +93,7 @@ const SignupForm = () => {
 
   return (
     <div className="flex justify-center">
-      <div className="bg-white p-6 rounded-lg shadow-lg w-auto">
+      <div className="bg-white p-4 rounded-lg shadow-lg w-auto">
         <Form {...form}>
           <FormLabel className="flex justify-start text-2xl font-bold py-1">
             Create an account
@@ -154,15 +154,14 @@ const SignupForm = () => {
             <Button className="w-full" size="lg" disabled={loading}>
               {loading ? "Creating..." : "Create Account"}
             </Button>
-
             <span className="flex justify-center text-sm mt-4">
               Already have an account?
+              <Link href="/auth/login">
+                <span className="text-sm flex justify-center cursor-pointer underline">
+                  Login!
+                </span>
+              </Link>
             </span>
-            <Link href="/auth/login">
-              <span className="text-sm flex justify-center cursor-pointer underline">
-                Login!
-              </span>
-            </Link>
             <FormLabel className="flex justify-center text-gray-700">
               or continue with
             </FormLabel>
