@@ -1,8 +1,12 @@
 import React from "react";
-import DeviceForm from "./_components/DeviceForm";
+import DeviceList from "../../../../components/DeviceCard";
 
 const DevicePage = () => {
-  return <DeviceForm />;
+  return (
+    <>
+      <DeviceList />
+    </>
+  );
 };
 
 export default DevicePage;

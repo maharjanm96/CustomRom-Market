@@ -45,7 +45,7 @@ export const GET = async () => {
 
   try {
     await connectMongo();
-    if (user === "ADMIN") {
+    if (user === "ADMIN" || user === "USER") {
       const docs = await Devices.find().sort({
         createdDate: -1,
       });

@@ -16,7 +16,7 @@ export async function AuthWrapper({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <div className="user-layout">
+    <div>
       <Header />
       {children}
       <Footer />

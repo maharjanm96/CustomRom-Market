@@ -31,6 +31,7 @@ const deviceSchema = z.object({
     .min(1, "Android Version is required")
     .regex(/^[0-9]+$/, "Android Version must only contain numbers")
     .max(2, "Exceeds more than 2 characters"),
+  image: z.string().url().optional(), // URL validation for image
 });
 
 type DeviceFormData = z.infer<typeof deviceSchema>;
@@ -45,6 +46,7 @@ const DeviceForm = () => {
       name: "",
       codeName: "",
       androidVersion: "",
+      image: "",
     },
   });
 
@@ -53,7 +55,12 @@ const DeviceForm = () => {
       setLoading(true);
       await axios.post(
         `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/admin/device`,
-        data
+        data,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
       );
       setLoading(false);
       toast.success("Device Added successfully!");
@@ -109,6 +116,22 @@ const DeviceForm = () => {
                   <FormLabel>Android Version</FormLabel>
                   <FormControl>
                     <Input placeholder="14" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="image"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Image URL</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="https://example.com/image.jpg"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
