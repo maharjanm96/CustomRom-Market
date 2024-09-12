@@ -4,14 +4,13 @@ const deviceSchema = new Schema(
   {
     image: {
       type: String,
-      required: true,
     },
     name: {
       type: String,
       required: true,
     },
-    model: { type: String, required: true },
-    rom: { type: [String], required: true },
+    codeName: { type: String, required: true },
+    androidVersion: { type: String, required: true },
   },
   { strict: false }
 );

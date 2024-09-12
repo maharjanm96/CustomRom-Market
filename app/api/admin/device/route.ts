@@ -14,10 +14,6 @@ export const POST = async (request: NextRequest) => {
     if (user === "ADMIN") {
       const existingDoc = await Devices.findOne({ _id: Data?._id });
       if (existingDoc) {
-        //check if image has been changed or not if yes delete previous one
-        // if (existingDoc.image && existingDoc.image != Data.image) {
-        //   await minioClient.removeObject(BUCKET_NAME, existingDoc.image);
-        // }
         await existingDoc.updateOne(Data);
         return NextResponse.json(
           { message: "Device Updated" },
@@ -85,9 +81,7 @@ export const DELETE = async (request: NextRequest) => {
       }
 
       await Devices.deleteOne({ _id });
-      //   if (exisitingDoc.image != null) {
-      //     await minioClient.removeObject(BUCKET_NAME, exisitingDoc.image);
-      //   }
+
       return NextResponse.json({ message: "Device Deleted" }, { status: 201 });
     } else {
       return NextResponse.json({ message: "Forbidden" }, { status: 400 });

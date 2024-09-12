@@ -28,6 +28,7 @@ export async function POST(req: NextRequest) {
       contact,
       email,
       password: hashedPassword,
+      userType: "ADMIN",
     });
 
     try {

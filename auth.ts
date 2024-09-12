@@ -26,6 +26,7 @@ export const {
             name: user.name,
             email: user.email,
             isVerified: true,
+            userType: "USER",
             joinedDate: Date.now(),
           });
           console.log("New User ", newUser);

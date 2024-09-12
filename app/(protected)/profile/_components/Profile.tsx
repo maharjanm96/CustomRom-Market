@@ -6,7 +6,7 @@ const ProfileCard = async () => {
   const session = await auth();
   return (
     <div className="flex flex-col justify-center items-center">
-      {session?.user?.email}, {session?.user?.name}
+      {session?.user?.email}, {session?.user?.name}, {session?.user?.role}
       <div>
         <form action={logout}>
           <button

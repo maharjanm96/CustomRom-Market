@@ -1,9 +1,8 @@
 import "./globals.css";
 import { Poppins } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-
+import { SessionProvider } from "next-auth/react";
+import { AuthWrapper } from "@/lib/AuthWrapper";
 const pop = Poppins({ subsets: ["latin"], weight: ["300", "500"] });
 
 export const metadata = {
@@ -18,10 +17,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={pop.className}>
-        <Toaster />
-        <Header />
-        <main>{children}</main>
-        <Footer />
+        <SessionProvider>
+          <Toaster />
+          <AuthWrapper>
+            <main>{children}</main>
+          </AuthWrapper>
+        </SessionProvider>
       </body>
     </html>
   );

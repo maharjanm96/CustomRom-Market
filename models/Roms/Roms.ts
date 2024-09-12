@@ -6,14 +6,17 @@ const romSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "Devices",
     },
-    codeName: {
+    name: {
       type: String,
       required: true,
     },
-    version: { type: String, required: true },
-    createdDate: {
-      type: Date,
-      default: Date.now(),
+    status: {
+      type: Boolean,
+      default: true,
+    },
+    androidVersion: { type: String, required: true },
+    latestRelease: {
+      type: String,
     },
   },
   { strict: false }
