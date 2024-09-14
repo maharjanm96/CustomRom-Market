@@ -31,7 +31,8 @@ const deviceSchema = z.object({
     .min(1, "Android Version is required")
     .regex(/^[0-9]+$/, "Android Version must only contain numbers")
     .max(2, "Exceeds more than 2 characters"),
-  image: z.string().url().optional(), // URL validation for image
+  image: z.string().url().optional(),
+  roms: z.string(),
 });
 
 type DeviceFormData = z.infer<typeof deviceSchema>;
@@ -47,6 +48,7 @@ const DeviceForm = () => {
       codeName: "",
       androidVersion: "",
       image: "",
+      roms: "",
     },
   });
 
@@ -89,7 +91,7 @@ const DeviceForm = () => {
                 <FormItem>
                   <FormLabel>Device Name</FormLabel>
                   <FormControl>
-                    <Input placeholder="POCO F1" {...field} />
+                    <Input placeholder="Nothing Phone" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

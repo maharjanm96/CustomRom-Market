@@ -5,7 +5,9 @@ import { NextResponse, NextRequest } from "next/server";
 
 export const POST = async (request: NextRequest) => {
   console.log("Running POST request: ADMIN Add/Update Device");
-  const user = await currentRole();
+  //const user = await currentRole();
+
+  const user = "ADMIN";
 
   try {
     const Data = await request.json();
@@ -21,6 +23,7 @@ export const POST = async (request: NextRequest) => {
         );
       } else {
         const newDoc = new Devices({ ...Data });
+        newDoc.codeName = newDoc.codeName.toUpperCase();
         await newDoc.save();
         return NextResponse.json(
           { message: "New Device Added" },

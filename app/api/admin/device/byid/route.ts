@@ -14,7 +14,7 @@ export const GET = async (request: NextRequest) => {
 
   try {
     await connectMongo();
-    if (user === "ADMIN") {
+    if (user === "ADMIN" || user === "USER") {
       const doc = await Devices.findOne({ _id });
       return NextResponse.json(doc, { status: 201 });
     } else {

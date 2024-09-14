@@ -1,10 +1,10 @@
 import React from "react";
-import DeviceList from "../../../../components/DeviceCard";
+import AdminDeviceCard from "@/components/AdminDeviceCard";
 
 const DevicePage = () => {
   return (
     <>
-      <DeviceList />
+      <AdminDeviceCard />
     </>
   );
 };

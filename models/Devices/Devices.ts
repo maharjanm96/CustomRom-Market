@@ -4,6 +4,7 @@ const deviceSchema = new Schema(
   {
     image: {
       type: String,
+      required: true,
     },
     name: {
       type: String,
@@ -11,6 +12,10 @@ const deviceSchema = new Schema(
     },
     codeName: { type: String, required: true },
     androidVersion: { type: String, required: true },
+    roms: {
+      type: [String],
+      required: true,
+    },
   },
   { strict: false }
 );

@@ -2,22 +2,15 @@ import { Schema, model, models, Model } from "mongoose";
 
 const romSchema = new Schema(
   {
-    linkedUserId: {
+    linkedDeviceId: {
       type: Schema.Types.ObjectId,
       ref: "Devices",
     },
-    name: {
-      type: String,
-      required: true,
-    },
-    status: {
-      type: Boolean,
-      default: true,
-    },
-    androidVersion: { type: String, required: true },
-    latestRelease: {
-      type: String,
-    },
+    name: { type: String, required: true },
+    androidVersion: { type: String },
+    releaseDate: { type: Date },
+    status: { type: String, default: "Available" },
+    downloadLink: { type: String },
   },
   { strict: false }
 );
