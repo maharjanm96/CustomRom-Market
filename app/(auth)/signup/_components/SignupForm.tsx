@@ -63,7 +63,7 @@ const SignupForm = () => {
       );
       setLoading(false);
       toast.success("Signup successful!");
-      router.push("/auth/login");
+      router.push("/login");
     } catch (err: any) {
       setLoading(false);
       if (err.response && err.response.data && err.response.data.message) {
@@ -156,7 +156,7 @@ const SignupForm = () => {
             </Button>
             <span className="flex justify-center text-sm mt-4">
               Already have an account?
-              <Link href="/auth/login">
+              <Link href="/login">
                 <span className="text-sm flex justify-center cursor-pointer underline">
                   Login!
                 </span>

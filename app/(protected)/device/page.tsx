@@ -1,11 +1,11 @@
-import DeviceList from "@/components/DeviceCard";
+import DeviceListComponent from "@/components/DeviceCard";
 import Search from "@/components/Search";
 
 const DevicePage = () => {
   return (
     <>
       <Search />
-      <DeviceList />
+      <DeviceListComponent />
     </>
   );
 };

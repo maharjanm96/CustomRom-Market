@@ -5,25 +5,25 @@ import { NextResponse, NextRequest } from "next/server";
 
 export const POST = async (request: NextRequest) => {
   console.log("Running POST request: ADMIN Add/Update Device");
-  //const user = await currentRole();
-
-  const user = "ADMIN";
+  const user = await currentRole();
 
   try {
-    const Data = await request.json();
+    const data = await request.json();
+
     await connectMongo();
+    const { searchParams } = new URL(request.url);
+    const id = searchParams.get("id");
 
     if (user === "ADMIN") {
-      const existingDoc = await Devices.findOne({ _id: Data?._id });
+      const existingDoc = await Devices.findOne({ _id: id });
       if (existingDoc) {
-        await existingDoc.updateOne(Data);
+        await existingDoc.updateOne(data);
         return NextResponse.json(
           { message: "Device Updated" },
           { status: 201 }
         );
       } else {
-        const newDoc = new Devices({ ...Data });
-        newDoc.codeName = newDoc.codeName.toUpperCase();
+        const newDoc = new Devices({ ...data });
         await newDoc.save();
         return NextResponse.json(
           { message: "New Device Added" },

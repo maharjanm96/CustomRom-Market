@@ -33,13 +33,12 @@ const deviceSchema = z.object({
     .regex(/^[0-9]+$/, "Android Version must only contain numbers")
     .max(2, "Exceeds more than 2 characters"),
   image: z.string().url().optional(),
-  roms: z.string(),
 });
 
 type UpdateDeviceFormData = z.infer<typeof deviceSchema>;
 
 const UpdateDeviceForm = () => {
-  const router = useRouter(); // Fixed useRouter invocation
+  const router = useRouter();
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
   const [loading, setLoading] = useState(false);
@@ -52,7 +51,6 @@ const UpdateDeviceForm = () => {
       codeName: "",
       androidVersion: "",
       image: "",
-      roms: "",
     },
   });
 
@@ -61,13 +59,11 @@ const UpdateDeviceForm = () => {
       setLoading(true);
       try {
         const response = await axios.get(`/api/admin/device/byid?id=${id}`);
-        // Use form.reset to set the fetched values in the form
         form.reset({
           name: response.data.name,
           codeName: response.data.codeName,
           androidVersion: response.data.androidVersion,
           image: response.data.image || "",
-          roms: response.data.roms || "",
         });
       } catch (error) {
         console.error("Failed to fetch device data:", error);
@@ -87,7 +83,8 @@ const UpdateDeviceForm = () => {
     setError(null);
     try {
       const response = await axios.post(`/api/admin/device?id=${id}`, data);
-      if (response.status === 200) {
+      console.log(data);
+      if (response.status === 201) {
         toast.success("Device updated successfully!");
         router.push("/admin/device");
       } else {

@@ -2,10 +2,9 @@
 import React, { useEffect, useState } from "react";
 import { Device } from "@/lib/types";
 import axios from "axios";
-import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
-const DeviceCard: React.FC = () => {
+const DeviceListComponent: React.FC = () => {
   const [devices, setDevices] = useState<Device[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -62,4 +61,4 @@ const DeviceCard: React.FC = () => {
   );
 };
 
-export default DeviceCard;
+export default DeviceListComponent;

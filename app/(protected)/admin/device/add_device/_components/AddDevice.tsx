@@ -15,6 +15,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 
 const deviceSchema = z.object({
   name: z
@@ -40,6 +41,7 @@ type DeviceFormData = z.infer<typeof deviceSchema>;
 const DeviceForm = () => {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
+  const router = useRouter();
 
   const form = useForm<DeviceFormData>({
     resolver: zodResolver(deviceSchema),
@@ -66,6 +68,7 @@ const DeviceForm = () => {
       );
       setLoading(false);
       toast.success("Device Added successfully!");
+      router.push("/admin/device");
     } catch (err: any) {
       setLoading(false);
       if (err.response && err.response.data && err.response.data.message) {

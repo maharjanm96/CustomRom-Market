@@ -45,7 +45,7 @@ const Home = () => {
       <p className="text-black text-xl">The road to freedom starts from here</p>
       <TypewriterEffectSmooth words={words} />
       <div className="lg:flex lg:flex-row sm:flex sm:flex-col sm:items-center sm:justify-center w-full flex gap-6 justify-center ">
-        <Link href="/auth/login">
+        <Link href="/login">
           <CustomButton
             name="Login"
             bgColor="bg-white"
@@ -53,7 +53,7 @@ const Home = () => {
           />
         </Link>
 
-        <Link href="/auth/signup">
+        <Link href="/signup">
           <CustomButton
             name="SignUp"
             bgColor="bg-black"

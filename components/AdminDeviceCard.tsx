@@ -49,6 +49,7 @@ const AdminDeviceCard = () => {
 
       if (response.status === 201) {
         toast.success("Deleted Successfully!");
+        router.refresh();
       } else {
         toast.error("Failed to delete the device");
       }

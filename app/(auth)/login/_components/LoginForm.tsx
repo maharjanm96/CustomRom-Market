@@ -110,7 +110,7 @@ function LoginFormContent() {
               Don&apos;t have an account?
             </span>
 
-            <Link href="/auth/signup">
+            <Link href="/signup">
               <span className="text-sm flex justify-center cursor-pointer underline">
                 Sign Up!
               </span>
