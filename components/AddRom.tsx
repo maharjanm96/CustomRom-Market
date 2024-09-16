@@ -4,6 +4,7 @@ import axios from "axios";
 import { Device } from "@/lib/types";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
 
 const AdminDeviceCard: React.FC = () => {
   const [devices, setDevices] = useState<Device[]>([]);
@@ -32,20 +33,20 @@ const AdminDeviceCard: React.FC = () => {
     fetchDevices();
   }, []);
 
-  // Handle input change for ROM form
+ 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setRomData({ ...romData, [e.target.name]: e.target.value });
   };
 
-  // Handle form submit to add ROM to the selected device
+ 
   const handleRomSubmit = async (deviceId: string) => {
     try {
       const response = await axios.post(
         `/api/admin/device/${deviceId}/add-rom`,
         romData
-      ); // API call to add ROM
+      ); 
       console.log("ROM added successfully", response.data);
-      setSelectedDevice(null); // Close the ROM form/modal after submission
+      setSelectedDevice(null); 
     } catch (error) {
       console.error("Failed to add ROM:", error);
     }
@@ -70,11 +71,15 @@ const AdminDeviceCard: React.FC = () => {
               key={device._id}
               className="border border-gray-300 rounded-lg p-4 shadow-md hover:border-custom transition-colors duration-300"
             >
-              <img
-                src={device.image}
-                alt={device.name}
-                className="w-full h-40 object-contain rounded-md mb-2"
-              />
+              <div className="w-full h-40 relative mb-2">
+                <Image
+                  src={device.image}
+                  alt={device.name}
+                  layout="fill"
+                  objectFit="contain"
+                  className="rounded-md"
+                />
+              </div>
               <div className="flex flex-col justify-center items-center">
                 <h3 className="text-lg font-semibold mb-1">{device.name}</h3>
                 <p className="text-sm text-custom font-medium mb-1 bg-slate-200 p-1 rounded-3xl">
@@ -85,12 +90,10 @@ const AdminDeviceCard: React.FC = () => {
                 </p>
               </div>
               <Button onClick={() => setSelectedDevice(device)}>Add ROM</Button>{" "}
-              {/* Button to open ROM form */}
             </div>
           ))}
         </div>
 
-        {/* ROM Form */}
         {selectedDevice && (
           <div className="fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 flex justify-center items-center">
             <div className="bg-white p-6 rounded-md">

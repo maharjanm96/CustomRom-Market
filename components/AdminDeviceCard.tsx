@@ -16,6 +16,7 @@ import {
 import { toast } from "sonner";
 import AlertBox from "./DeleteAlertBox";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 const AdminDeviceCard = () => {
   const [devices, setDevices] = useState<Device[]>([]);
@@ -87,10 +88,12 @@ const AdminDeviceCard = () => {
           {devices.map((device) => (
             <TableRow key={device._id}>
               <TableCell>
-                <img
+                <Image
                   src={device.image}
                   alt={device.name}
-                  className="w-16 h-16 object-contain rounded-md"
+                  width={64} // Equivalent to w-16 (16 * 4 = 64px)
+                  height={64} // Equivalent to h-16 (16 * 4 = 64px)
+                  className="object-contain rounded-md"
                 />
               </TableCell>
               <TableCell>{device.name}</TableCell>

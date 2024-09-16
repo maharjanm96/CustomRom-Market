@@ -2,8 +2,8 @@
 import React, { useEffect, useState } from "react";
 import { Device } from "@/lib/types";
 import axios from "axios";
-import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import Image from "next/image";
 
 const DeviceCard: React.FC = () => {
   const [devices, setDevices] = useState<Device[]>([]);
@@ -38,18 +38,21 @@ const DeviceCard: React.FC = () => {
         <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-4 mb-8">
           {devices.map((device) => (
             <Link key={device._id} href={`/admin/device/byid?id=${device._id}`}>
-              <div className="border border-gray-300 rounded-lg p-4 shadow-md hover:border-custom transition-colors duration-300 cursor-pointer">
-                <img
-                  src={device.image}
-                  alt={device.name}
-                  className="w-full h-40 object-contain rounded-md mb-2"
-                />
-                <div className="flex flex-col justify-center items-center">
-                  <h3 className="text-lg font-semibold mb-1">{device.name}</h3>
-                  <p className="text-sm text-custom font-medium mb-1 bg-slate-200 p-1 rounded-3xl">
-                    {device.codeName}
+              <div className="flex flex-col items-center justify-center border border-gray-300 rounded-lg p-4 shadow-md hover:border-custom transition-colors duration-300 cursor-pointer">
+                <div className="w-48 h-40 relative mb-2 overflow-hidden">
+                  <Image
+                    src={device.image}
+                    alt={device.name}
+                    layout="fill"
+                    objectFit="contain"
+                  />
+                </div>
+                <div className="flex flex-col gap-2 justify-center items-center mt-4">
+                  <h3 className="text-md font-semibold">{device.name}</h3>
+                  <p className="text-xs font-semibold text-custom bg-slate-200 p-1 px-2 rounded-3xl">
+                    {device.codeName.toUpperCase()}
                   </p>
-                  <p className="text-sm text-gray-600">
+                  <p className="text-sm text-gray-400 pb-8">
                     Android Version: {device.androidVersion}
                   </p>
                 </div>

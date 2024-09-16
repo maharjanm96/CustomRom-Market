@@ -21,11 +21,11 @@ const deviceSchema = z.object({
   name: z
     .string()
     .min(1, "Device Name is required")
-    .max(20, "Device Name is too long"),
+    .max(40, "Device Name is too long"),
   codeName: z
     .string()
     .min(1, "Code Name is required")
-    .max(12, "Code Name is too long")
+    .max(20, "Code Name is too long")
     .regex(/^[a-zA-Z]+$/, "Code Name must only contain letters"),
   androidVersion: z
     .string()

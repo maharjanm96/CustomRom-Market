@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Device } from "@/lib/types";
 import axios from "axios";
 import Link from "next/link";
+import Image from "next/image";
 
 const DeviceListComponent: React.FC = () => {
   const [devices, setDevices] = useState<Device[]>([]);
@@ -38,11 +39,16 @@ const DeviceListComponent: React.FC = () => {
           {devices.map((device) => (
             <Link key={device._id} href={`/admin/device/byid?id=${device._id}`}>
               <div className="border border-gray-300 rounded-lg p-4 shadow-md hover:border-custom transition-colors duration-300 cursor-pointer">
-                <img
-                  src={device.image}
-                  alt={device.name}
-                  className="w-full h-40 object-contain rounded-md mb-2"
-                />
+                <div className="w-full h-40 relative mb-2">
+                  <Image
+                    src={device.image}
+                    alt={device.name}
+                    layout="fill"
+                    objectFit="contain"
+                    className="rounded-md"
+                  />
+                </div>
+
                 <div className="flex flex-col justify-center items-center">
                   <h3 className="text-lg font-semibold mb-1">{device.name}</h3>
                   <p className="text-sm text-custom font-medium mb-1 bg-slate-200 p-1 rounded-3xl">

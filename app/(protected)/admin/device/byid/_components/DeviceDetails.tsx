@@ -6,6 +6,7 @@ import { Device } from "@/lib/types";
 import { ArrowDropDown } from "@mui/icons-material";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import Image from "next/image";
 
 const DeviceDetails: React.FC = () => {
   const searchParams = useSearchParams();
@@ -50,20 +51,16 @@ const DeviceDetails: React.FC = () => {
       {device && (
         <div className="flex flex-col md:flex-row">
           <div className="w-full md:w-1/3 flex justify-center mb-4 md:mb-0">
-            <div
-              className=" w-full border items-center
-              border-gray-300
-              rounded-lg
-              p-4
-              "
-            >
-              <img
+            <div className=" w-full border flex flex-col items-center border-gray-300 rounded-lg">
+              <Image
                 src={device.image}
                 alt={device.name}
-                className="w-full h-80 object-contain rounded-md"
+                width={400}
+                height={350}
+                className="object-contain p-6"
               />
               <Link key={device._id} href={`/admin/add_roms?id=${device._id}`}>
-                <Button>Add ROM</Button>
+                <Button className="mb-6">Add ROM</Button>
               </Link>
             </div>
           </div>

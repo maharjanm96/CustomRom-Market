@@ -12,10 +12,7 @@ const deviceSchema = new Schema(
     },
     codeName: { type: String, required: true },
     androidVersion: { type: String, required: true },
-    roms: {
-      type: [String],
-      required: true,
-    },
+    
   },
   { strict: false }
 );
