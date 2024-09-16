@@ -2,10 +2,7 @@ import { Schema, model, models, Model } from "mongoose";
 
 const romSchema = new Schema(
   {
-    linkedDeviceId: {
-      type: Schema.Types.ObjectId,
-      ref: "Devices",
-    },
+    linkedDeviceIds: [{ type: Schema.Types.ObjectId, ref: "Device" }],
     name: { type: String, required: true },
     androidVersion: { type: String },
     status: { type: String, default: "Available" },

@@ -46,6 +46,13 @@ const Header = () => {
           <span>Devices</span>
         </Link>
         <Link
+          href="/admin/roms"
+          className="flex items-center space-x-2 px-5 py-2 text-default-color hover:text-custom hover:bg-slate-50 hover:rounded-xl transition duration-200"
+        >
+          <FaMobileAlt style={{ fontSize: 20 }} />
+          <span>ROMs</span>
+        </Link>
+        <Link
           href="/profile"
           className="flex items-center space-x-2 px-5 py-2 text-default-color hover:text-custom hover:bg-slate-50 hover:rounded-xl transition duration-200"
         >

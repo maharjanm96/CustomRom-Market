@@ -67,9 +67,14 @@ const AdminDeviceCard = () => {
     <div className="px-24">
       <div className="flex items-end justify-between my-6">
         <h2 className="text-xl font-bold">Device List</h2>
-        <Link href="/admin/device/add_device">
-          <Button className="p-4">Add Device</Button>
-        </Link>
+        <div className="flex gap-4">
+          <Link href="/admin/device/add_device">
+            <Button className="p-4">Add Device</Button>
+          </Link>
+          <Link href="/admin/add_roms">
+            <Button>Add ROMs</Button>
+          </Link>
+        </div>
       </div>
 
       <Table>
@@ -79,7 +84,7 @@ const AdminDeviceCard = () => {
             <TableHead>Image</TableHead>
             <TableHead>Device Name</TableHead>
             <TableHead>Code Name</TableHead>
-            <TableHead>Android Version</TableHead>
+            <TableHead>Roms</TableHead>
             <TableHead>Details</TableHead>
             <TableHead>Actions</TableHead>
           </TableRow>
@@ -91,14 +96,14 @@ const AdminDeviceCard = () => {
                 <Image
                   src={device.image}
                   alt={device.name}
-                  width={64} // Equivalent to w-16 (16 * 4 = 64px)
-                  height={64} // Equivalent to h-16 (16 * 4 = 64px)
+                  width={64}
+                  height={64}
                   className="object-contain rounded-md"
                 />
               </TableCell>
               <TableCell>{device.name}</TableCell>
               <TableCell>{device.codeName}</TableCell>
-              <TableCell>{device.androidVersion}</TableCell>
+              <TableCell>{device.roms}</TableCell>
               <TableCell>
                 <Link href={`/admin/device/byid?id=${device._id}`}>
                   <Button variant="link">View Details</Button>

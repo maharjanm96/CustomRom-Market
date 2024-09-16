@@ -1,11 +1,11 @@
 import React from "react";
-import MobileDescription from "@/components/MobileDescription";
+import DescriptionComponent from "@/components/DescriptionComponent";
 import Search from "@/components/Search";
 const Description = () => {
   return (
     <>
       <Search />
-      <MobileDescription />
+      <DescriptionComponent />
     </>
   );
 };

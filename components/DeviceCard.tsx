@@ -37,8 +37,8 @@ const DeviceCard: React.FC = () => {
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-4 mb-8">
           {devices.map((device) => (
-            <Link key={device._id} href={`/admin/device/byid?id=${device._id}`}>
-              <div className="flex flex-col items-center justify-center border border-gray-300 rounded-lg p-4 shadow-md hover:border-custom transition-colors duration-300 cursor-pointer">
+            <Link key={device._id} href={`/device/byid?id=${device._id}`}>
+              <div className="flex flex-col items-center justify-center border border-gray-300 rounded-lg p-4 shadow-md hover:border-custom transition-colors duration-200 cursor-pointer">
                 <div className="w-48 h-40 relative mb-2 overflow-hidden">
                   <Image
                     src={device.image}
