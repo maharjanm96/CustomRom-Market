@@ -40,12 +40,16 @@ const ProfileComponent = async () => {
                 <Input
                   disabled
                   type="name"
-                  defaultValue={session?.user?.name}
+                  defaultValue={session?.user?.name || ""}
                 />
               </div>
               <div className="space-y-1">
                 <Label htmlFor="email">Email</Label>
-                <Input disabled type="email" value={session?.user?.email} />
+                <Input
+                  disabled
+                  type="email"
+                  value={session?.user?.email || ""}
+                />
               </div>
             </CardContent>
             <CardFooter>
@@ -62,7 +66,8 @@ const ProfileComponent = async () => {
             <CardHeader>
               <CardTitle>Password</CardTitle>
               <CardDescription>
-                Change your password here. After saving, you'll be logged out.
+                Change your password here. After saving, you&apos;ll be logged
+                out.
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-2">
