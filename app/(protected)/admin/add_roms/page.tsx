@@ -117,7 +117,7 @@ const AddRomForm: React.FC = () => {
         </label>
         <Select
           options={roms.map((rom) => ({
-            value: rom.name,
+            value: rom._id,
             status: rom.status,
             label: `${rom.name}`,
           }))}

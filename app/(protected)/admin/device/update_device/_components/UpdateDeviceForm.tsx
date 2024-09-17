@@ -25,8 +25,7 @@ const deviceSchema = z.object({
   codeName: z
     .string()
     .min(1, "Code Name is required")
-    .max(20, "Code Name is too long")
-    .regex(/^[a-zA-Z]+$/, "Code Name must only contain letters"),
+    .max(20, "Code Name is too long"),
   androidVersion: z
     .string()
     .min(1, "Android Version is required")

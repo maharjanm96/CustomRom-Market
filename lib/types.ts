@@ -4,7 +4,7 @@ export interface Device {
   image: string;
   codeName: string;
   androidVersion: string;
-  roms: string;
+  roms: string[];
 }
 
 export type Rom = {

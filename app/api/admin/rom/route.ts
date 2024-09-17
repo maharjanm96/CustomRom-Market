@@ -15,7 +15,7 @@ export const POST = async (request: NextRequest) => {
     const { name, androidVersion } = data;
 
     if (user === "ADMIN") {
-      const existingRom = await Roms.findOne({name});
+      const existingRom = await Roms.findOne({ name });
       if (existingRom) {
         return NextResponse.json(
           { message: "Rom already exists" },
@@ -25,6 +25,7 @@ export const POST = async (request: NextRequest) => {
       const newDoc = new Roms({
         name,
         androidVersion,
+        status: "Available",
       });
       await newDoc.save();
       return NextResponse.json({ message: "New ROM Added" }, { status: 201 });
