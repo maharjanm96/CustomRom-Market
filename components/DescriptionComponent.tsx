@@ -1,26 +1,25 @@
 "use client";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Device } from "@/lib/types";
+import { Device, Rom } from "@/lib/types";
 import { ArrowDropDown } from "@mui/icons-material";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
 import Image from "next/image";
+import { useAuth } from "@/hooks/useAuth";
 
-const DeviceDetails: React.FC = () => {
+const DeviceDetails = () => {
+  const { user } = useAuth();
   const searchParams = useSearchParams();
   const deviceId = searchParams.get("id");
-  console.log(deviceId);
   const [device, setDevice] = useState<Device | null>(null);
+  const [roms, setRoms] = useState<Rom[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-
-  const roms = ["PixelOS", "crDroid", "Evolution X", "Stock ROM"];
   const [selectedRom, setSelectedRom] = useState<string | null>(null);
+  const router = useRouter();
 
-  const toggleRomDetails = (rom: string) => {
-    setSelectedRom(selectedRom === rom ? null : rom);
+  const toggleRomDetails = (romId: string) => {
+    setSelectedRom(selectedRom === romId ? null : romId);
   };
 
   useEffect(() => {
@@ -31,9 +30,21 @@ const DeviceDetails: React.FC = () => {
             `/api/admin/device/byid?id=${deviceId}`
           );
           setDevice(response.data);
+
+          // Fetch ROM details
+          const romIds = response.data.roms || [];
+          if (romIds.length > 0) {
+            const romsResponse = await Promise.all(
+              romIds.map((id: string) =>
+                axios.get(`/api/admin/rom/byid?id=${id}`)
+              )
+            );
+
+            setRoms(romsResponse.map((res) => res.data));
+          }
         } catch (error) {
-          console.error("Failed to fetch device:", error);
-          setError("Failed to fetch device");
+          console.error("Failed to fetch device or ROM details:", error);
+          setError("Failed to fetch device or ROM details");
         } finally {
           setLoading(false);
         }
@@ -43,6 +54,10 @@ const DeviceDetails: React.FC = () => {
     }
   }, [deviceId]);
 
+  const handleGetOrder = (romId: string) => {
+    router.push(`/order?userid=${user.id}&romid=${romId}&deviceid=${deviceId}`);
+  };
+
   if (loading) return <div className="text-center text-3xl">Loading...</div>;
   if (error) return <div>{error}</div>;
 
@@ -51,7 +66,7 @@ const DeviceDetails: React.FC = () => {
       {device && (
         <div className="flex flex-col md:flex-row">
           <div className="w-full md:w-1/3 flex justify-center mb-4 md:mb-0">
-            <div className=" w-full border flex flex-col items-center border-gray-300 rounded-lg">
+            <div className="w-full border flex flex-col items-center border-gray-300 rounded-lg">
               <Image
                 src={device.image}
                 alt={device.name}
@@ -59,9 +74,6 @@ const DeviceDetails: React.FC = () => {
                 height={350}
                 className="object-contain p-6"
               />
-              {/* <Link key={device._id} href={`/admin/add_roms?id=${device._id}`}>
-                <Button className="mb-6">Add ROM</Button>
-              </Link> */}
             </div>
           </div>
           <div className="w-full md:w-2/3 md:pl-8">
@@ -83,36 +95,30 @@ const DeviceDetails: React.FC = () => {
               </div>
               <div className="mt-4">
                 {roms.map((rom) => (
-                  <div key={rom} className="mb-2">
+                  <div key={rom._id} className="mb-2">
                     <div
-                      onClick={() => toggleRomDetails(rom)}
+                      onClick={() => toggleRomDetails(rom._id)}
                       className="flex justify-between items-center font-semibold px-4 py-2 bg-gray-100 text-md rounded-md cursor-pointer hover:bg-gray-200 transition"
                     >
-                      <span>{rom}</span>
+                      <span>{rom.name}</span>
                       <span className="text-green-500 text-sm p-2">
                         Available <ArrowDropDown />
                       </span>
                     </div>
-                    {selectedRom === rom && (
+                    {selectedRom === rom._id && (
                       <div className="mt-2 bg-gray-100 p-4 rounded-md">
                         <div className="text-green-600 font-bold text-sm mb-2">
-                          Status: Available
-                        </div>
-                        <div className="text-lg font-semibold mb-2">
-                          Codename : BERYLLIUM
+                          Status: {rom.status}
                         </div>
                         <div className="text-sm text-gray-500 mb-2">
-                          Android Version: 14
-                        </div>
-                        <div className="text-sm text-gray-500 mb-2">
-                          Latest Release: 29 May 2024
+                          Android Version: {rom.androidVersion}
                         </div>
                         <div className="mt-2 flex space-x-4">
-                          <button className="px-4 py-2 bg-blue-100 text-blue-800 rounded-md">
-                            Get {rom}
-                          </button>
-                          <button className="px-4 py-2 bg-blue-100 text-blue-800 rounded-md">
-                            Report Issue
+                          <button
+                            onClick={() => handleGetOrder(rom._id)}
+                            className="px-4 py-2 bg-blue-100 text-blue-800 rounded-md"
+                          >
+                            Get {rom.name}
                           </button>
                         </div>
                         <div className="mt-4 p-2 bg-yellow-100 text-yellow-800 rounded-md">

@@ -13,7 +13,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import Loader from "@/components/ui/loader";
+import Link from "next/link";
 
 const ProfileComponent = async () => {
   const session = await auth();
@@ -21,6 +21,10 @@ const ProfileComponent = async () => {
     <div className="flex flex-col gap-8 justify-center items-center mt-12">
       {/* <Loader /> */}
       {/* {session?.user?.email}, {session?.user?.name}, {session?.user?.role} */}
+      <Link href="/order/details">
+        <div>View Orders</div>
+      </Link>
+
       <Tabs defaultValue="account" className="w-[400px]">
         <TabsList className="grid w-full grid-cols-2">
           <TabsTrigger value="account">Account</TabsTrigger>
