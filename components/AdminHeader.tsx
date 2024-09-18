@@ -2,7 +2,14 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { FaHome, FaMobileAlt, FaBars, FaTimes, FaUser } from "react-icons/fa";
+import {
+  FaHome,
+  FaMobileAlt,
+  FaBars,
+  FaTimes,
+  FaUser,
+  FaShoppingCart,
+} from "react-icons/fa";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -51,6 +58,13 @@ const Header = () => {
         >
           <FaMobileAlt style={{ fontSize: 20 }} />
           <span>ROMs</span>
+        </Link>
+        <Link
+          href="/admin/orders"
+          className="flex items-center space-x-2 px-5 py-2 text-default-color hover:text-custom hover:bg-slate-50 hover:rounded-xl transition duration-200"
+        >
+          <FaShoppingCart style={{ fontSize: 20 }} />
+          <span>Orders</span>
         </Link>
         <Link
           href="/profile"

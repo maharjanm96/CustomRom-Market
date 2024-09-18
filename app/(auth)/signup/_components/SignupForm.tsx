@@ -68,9 +68,9 @@ const SignupForm = () => {
       setLoading(false);
       if (err.response && err.response.data && err.response.data.message) {
         if (err.response.data.message) {
-          toast.error("Email already exists!");
+          toast.error("Already exists!");
         } else if (err.response.data.message) {
-          toast.error("Contact already exists!");
+          toast.error("Already exists!");
         } else {
           form.setError("email", { message: err.response.data.email });
           form.setError("password", { message: err.response.data.password });

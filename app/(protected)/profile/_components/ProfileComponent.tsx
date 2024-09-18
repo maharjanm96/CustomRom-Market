@@ -21,9 +21,11 @@ const ProfileComponent = async () => {
     <div className="flex flex-col gap-8 justify-center items-center mt-12">
       {/* <Loader /> */}
       {/* {session?.user?.email}, {session?.user?.name}, {session?.user?.role} */}
-      <Link href="/order/details">
-        <div>View Orders</div>
-      </Link>
+      {/* {session?.user?.role === "USER" ? (
+        <Link href="/order/details">
+          <div>View Orders</div>
+        </Link>
+      ) : null} */}
 
       <Tabs defaultValue="account" className="w-[400px]">
         <TabsList className="grid w-full grid-cols-2">
@@ -40,11 +42,11 @@ const ProfileComponent = async () => {
             </CardHeader>
             <CardContent className="space-y-2">
               <div className="space-y-1">
-                <Label htmlFor="username">Name</Label>
+                <Label htmlFor="username">Role</Label>
                 <Input
                   disabled
                   type="name"
-                  defaultValue={session?.user?.name || ""}
+                  defaultValue={session?.user?.role || ""}
                 />
               </div>
               <div className="space-y-1">

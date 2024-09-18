@@ -9,6 +9,7 @@ import {
   FaBars,
   FaTimes,
   FaUser,
+  FaShoppingCart,
 } from "react-icons/fa";
 
 const Header = () => {
@@ -53,11 +54,11 @@ const Header = () => {
           <span>Devices</span>
         </Link>
         <Link
-          href=""
+          href="/order/details"
           className="flex items-center space-x-2 px-5 py-2 hover:text-custom hover:bg-slate-50 hover:rounded-xl transition duration-200"
         >
-          <FaDollarSign style={{ fontSize: 20 }} />
-          <span>Pricing</span>
+          <FaShoppingCart style={{ fontSize: 20 }} />
+          <span>My Orders</span>
         </Link>
         <Link
           href="/profile"
