@@ -8,7 +8,6 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import Search from "@/components/Search";
-import Loader from "@/components/ui/loader";
 
 const DashboardComponent = () => {
   return (
@@ -26,13 +25,9 @@ const DashboardComponent = () => {
             <CarouselContent>
               {Array.from({ length: 10 }).map((_, index) => (
                 <CarouselItem key={index} className="md:basis-1/3 lg:basis-1/4">
-                  {" "}
-                  {/* Adjust width basis for larger cards */}
                   <div className="p-2">
                     <Card>
                       <CardContent className="flex aspect-square items-center justify-center p-6">
-                        {" "}
-                        {/* Adjust padding to make cards bigger */}
                         <span className="text-3xl font-semibold">
                           {index + 1}
                         </span>
