@@ -11,9 +11,11 @@ import {
 } from "@/components/ui/table";
 import axios from "axios";
 import { useAuth } from "@/hooks/useAuth";
+import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 
 interface Order {
-  id: string;
+  _id: string;
   status: string;
   address: string;
   totalAmount: string;
@@ -24,16 +26,18 @@ interface Order {
 }
 
 const OrderDetails = () => {
-  const { user } = useAuth(); // Get the current user
+  const { user } = useAuth();
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const router = useRouter();
 
   useEffect(() => {
     const fetchOrders = async () => {
       try {
         if (user && user.id) {
           const response = await axios.get(`/api/order/byid?id=${user.id}`);
+          console.log(response.data);
           setOrders(response.data);
         }
       } catch (error) {
@@ -46,6 +50,12 @@ const OrderDetails = () => {
 
     fetchOrders();
   }, [user]);
+
+  const handleClickReview = (orderId: string) => {
+    if (user && user.id) {
+      router.push(`/order/ratings?orderId=${orderId}&userId=${user.id}`);
+    }
+  };
 
   if (loading) {
     return <div className="text-center font-semibold text-2xl">Loading...</div>;
@@ -67,13 +77,14 @@ const OrderDetails = () => {
             <TableHead>Contact</TableHead>
             <TableHead>Status</TableHead>
             <TableHead>Address</TableHead>
-            <TableHead className="text-right">Amount</TableHead>
+            <TableHead>Amount</TableHead>
+            <TableHead>Action</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           {orders.length > 0 ? (
             orders.map((order) => (
-              <TableRow key={order.id}>
+              <TableRow key={order._id}>
                 <TableCell>
                   <img
                     src={order.deviceImage}
@@ -87,17 +98,24 @@ const OrderDetails = () => {
                 <TableCell>{order.contact}</TableCell>
                 <TableCell>{order.status}</TableCell>
                 <TableCell>{order.address}</TableCell>
-                <TableCell className="text-right">
-                  Rs.{order.totalAmount}
+                <TableCell>Rs.{order.totalAmount}</TableCell>
+                <TableCell>
+                  {order.status === "Completed" ? (
+                    <Button onClick={() => handleClickReview(order._id)}>
+                      Review
+                    </Button>
+                  ) : (
+                    ""
+                  )}
                 </TableCell>
               </TableRow>
             ))
           ) : (
             <TableRow>
-              <TableCell colSpan={7} className="text-center">
-                {orders.length === 0 && !loading
-                  ? "Loading..."
-                  : "No orders found"}
+              <TableCell colSpan={10} className="text-center">
+                {orders.length === 0 && loading
+                  ? " No orders found"
+                  : "Loading..."}
               </TableCell>
             </TableRow>
           )}

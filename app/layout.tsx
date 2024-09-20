@@ -3,6 +3,7 @@ import { Poppins } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner";
 import { SessionProvider } from "next-auth/react";
 import { AuthWrapper } from "@/lib/AuthWrapper";
+import "@smastrom/react-rating/style.css";
 
 const pop = Poppins({ subsets: ["latin"], weight: ["300", "500"] });
 

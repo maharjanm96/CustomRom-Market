@@ -8,9 +8,10 @@ const analyzeFeedback = (feedback: string) => {
   return result;
 };
 
-const userFeedback = "I loved the ROmM but the performance is super fast!";
+const userFeedback =
+  "I loved the ROM but the performance is worst !> its super fast";
 const sentimentResult = analyzeFeedback(userFeedback);
-console.log(sentimentResult); // Will show positive, neutral, or negative scores
+console.log(sentimentResult.score);
 
 const DashboardPage = () => {
   return (
