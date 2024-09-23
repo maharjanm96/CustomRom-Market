@@ -12,6 +12,8 @@ export type Rom = {
   name: string; // ROM name
   androidVersion: string; // Android version
   status: string;
+  averageRating?: number; // Add this line
+  averageSentiment?: number; // Add this line
 };
 
 interface SelectOption {

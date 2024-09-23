@@ -13,21 +13,34 @@ export const GET = async (request: NextRequest) => {
   const { searchParams } = new URL(request.url);
   const userId = searchParams.get("id"); // Get user ID from query parameters
 
+
+
+  if (!userId) {
+    return NextResponse.json(
+      { message: "User ID is required" },
+      { status: 400 }
+    );
+  }
+
   try {
     await connectMongo();
 
     if (user === "ADMIN" || (user === "USER" && userId)) {
+      console.log("Searching for orders with user ID:", userId);
+
       // Fetch orders by user ID
       const orders = await Orders.find({ linkedUserId: userId });
 
-      if (!orders.length) {
+      // Check if there are any orders
+      if (orders.length === 0) {
+        console.log("No orders found for user ID:", userId);
         return NextResponse.json(
           { message: "No orders found" },
-          { status: 404 }
+          { status: 200 }
         );
       }
 
-      // Enrich the orders with device and ROM details
+      // Enrich the orders with device and ROM details if orders exist
       const enrichedOrders = await Promise.all(
         orders.map(async (order) => {
           try {
@@ -41,6 +54,7 @@ export const GET = async (request: NextRequest) => {
               deviceName: device?.name || "Unknown Device", // Fallback if not found
               deviceImage: device?.image || "/default-image.png", // Fallback if not found
               romName: rom?.name || "Unknown ROM", // Fallback if not found
+              romId: rom?._id || "No id",
             };
           } catch (err) {
             console.error(`Error enriching order ${order._id}:`, err);

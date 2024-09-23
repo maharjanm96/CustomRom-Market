@@ -1,7 +1,8 @@
 "use client";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import axios from "axios";
+import { toast } from "sonner";
 
 const OrderPage = () => {
   const searchParams = useSearchParams();
@@ -15,6 +16,7 @@ const OrderPage = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
+  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -33,6 +35,8 @@ const OrderPage = () => {
       });
 
       setSuccess("Order placed successfully!");
+      toast.success("Order Placed successfully");
+      router.push(`order/details?romId=${romId}`);
     } catch (error) {
       console.error("Error placing order:", error);
       setError("Failed to place the order. Please try again.");

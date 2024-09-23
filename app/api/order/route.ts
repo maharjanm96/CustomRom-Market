@@ -35,7 +35,17 @@ export async function POST(request: NextRequest) {
         });
 
         await newOrder.save();
-        return NextResponse.json({ message: "Order Placed" }, { status: 201 });
+        const existingRom = await Roms.findOne({ _id: romId });
+        if (existingRom) {
+          let sold = existingRom.sold || 0; // Initialize 'sold' with the current value or default to 0
+          existingRom.sold = sold + 1;
+          await existingRom.save();
+        }
+        console.log(newOrder);
+        return NextResponse.json(
+          { message: "Order Placed", newOrder },
+          { status: 201 }
+        );
       }
     } else {
       return NextResponse.json({ message: "Forbidden" }, { status: 400 });

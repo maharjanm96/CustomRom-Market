@@ -48,9 +48,7 @@ export const GET = async () => {
   try {
     await connectMongo();
     if (user === "ADMIN" || user === "USER") {
-      const docs = await Roms.find().sort({
-        createdDate: -1,
-      });
+      const docs = await Roms.find({});
       return NextResponse.json(docs, { status: 201 });
     } else {
       return NextResponse.json({ message: "Forbidden" }, { status: 400 });

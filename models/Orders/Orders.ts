@@ -14,6 +14,7 @@ interface IOrder extends Document {
     romRating: number;
     comments?: string;
   };
+  reviewed: boolean;
 }
 
 const orderSchema = new Schema<IOrder>(
@@ -33,6 +34,10 @@ const orderSchema = new Schema<IOrder>(
     rating: {
       romRating: { type: Number, min: 1, max: 5 },
       comments: { type: String },
+    },
+    reviewed: {
+      type: Boolean,
+      default: false,
     },
   },
   { strict: false }

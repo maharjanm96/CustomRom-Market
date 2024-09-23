@@ -6,6 +6,9 @@ import { Device, Rom } from "@/lib/types";
 import { ArrowDropDown } from "@mui/icons-material";
 import Image from "next/image";
 import { useAuth } from "@/hooks/useAuth";
+import { Rating } from "@smastrom/react-rating";
+import { Progress } from "@/components/ui/progress";
+import Sentiment from "sentiment";
 
 const DeviceDetails = () => {
   const { user } = useAuth();
@@ -22,6 +25,24 @@ const DeviceDetails = () => {
     setSelectedRom(selectedRom === romId ? null : romId);
   };
 
+  const analyzeFeedback = (feedback: string) => {
+    const sentiment = new Sentiment();
+    const result = sentiment.analyze(feedback);
+    return result.comparative; // Return the comparative score
+  };
+
+  const fetchRatings = async (romId: string) => {
+    try {
+      const ratingsResponse = await axios.get(
+        `/api/ratings/byid?romId=${romId}`
+      );
+      return ratingsResponse.data;
+    } catch (error) {
+      console.error("Failed to fetch ratings:", error);
+      return [];
+    }
+  };
+
   useEffect(() => {
     if (deviceId) {
       const fetchDevice = async () => {
@@ -31,16 +52,43 @@ const DeviceDetails = () => {
           );
           setDevice(response.data);
 
-          // Fetch ROM details
           const romIds = response.data.roms || [];
           if (romIds.length > 0) {
             const romsResponse = await Promise.all(
-              romIds.map((id: string) =>
-                axios.get(`/api/admin/rom/byid?id=${id}`)
-              )
+              romIds.map(async (id: string) => {
+                const romRes = await axios.get(`/api/admin/rom/byid?id=${id}`);
+                const ratings = await fetchRatings(id); // Fetch ratings for this specific ROM ID
+
+                // Calculate average rating
+                const averageRating = ratings.length
+                  ? ratings.reduce(
+                      (acc: number, rating: { rating: number }) =>
+                        acc + rating.rating,
+                      0
+                    ) / ratings.length
+                  : 0;
+
+                // Calculate average sentiment
+                const totalSentiment = ratings.reduce(
+                  (acc: number, rating: any) => {
+                    const sentimentScore = analyzeFeedback(rating.review);
+                    return acc + sentimentScore;
+                  },
+                  0
+                );
+                const averageSentiment = ratings.length
+                  ? totalSentiment / ratings.length
+                  : 0;
+
+                return {
+                  ...romRes.data,
+                  averageRating: averageRating || 0,
+                  averageSentiment: averageSentiment || 0, // Ensure it defaults to 0
+                };
+              })
             );
 
-            setRoms(romsResponse.map((res) => res.data));
+            setRoms(romsResponse);
           }
         } catch (error) {
           console.error("Failed to fetch device or ROM details:", error);
@@ -113,6 +161,20 @@ const DeviceDetails = () => {
                         <div className="text-sm text-gray-500 mb-2">
                           Android Version: {rom.androidVersion}
                         </div>
+                        <div className="text-sm text-gray-500 mb-2">
+                          Average Ratings:{" "}
+                          <Rating
+                            value={rom.averageRating || 0}
+                            style={{ maxWidth: 200 }}
+                          />
+                        </div>
+
+                        <div className="text-sm text-gray-500 mb-2">
+                          Overall Sentiment Score:{" "}
+                          {rom.averageSentiment * 100 || 0}
+                          <Progress value={rom.averageSentiment * 100 || 0} />
+                        </div>
+
                         <div className="mt-2 flex space-x-4">
                           <button
                             onClick={() => handleGetOrder(rom._id)}

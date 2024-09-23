@@ -17,6 +17,7 @@ const ReviewForm = () => {
   // Get the orderId and userId from the URL query parameters
   const orderId = searchParams.get("orderId");
   const userId = searchParams.get("userId");
+  const romId = searchParams.get("romId");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -40,6 +41,7 @@ const ReviewForm = () => {
           params: {
             orderId: orderId,
             userId: userId,
+            romId: romId,
           },
         }
       );

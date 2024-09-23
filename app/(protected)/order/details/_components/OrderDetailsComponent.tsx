@@ -23,6 +23,8 @@ interface Order {
   deviceName: string;
   deviceImage: string;
   romName: string;
+  romId: string;
+  reviewed: boolean;
 }
 
 const OrderDetails = () => {
@@ -36,6 +38,8 @@ const OrderDetails = () => {
     const fetchOrders = async () => {
       try {
         if (user && user.id) {
+          // Only fetch if user and user.id are defined
+          console.log("Fetching orders for user ID:", user.id); // Log only when user.id is available
           const response = await axios.get(`/api/order/byid?id=${user.id}`);
           console.log(response.data);
           setOrders(response.data);
@@ -44,16 +48,23 @@ const OrderDetails = () => {
         console.error("Error fetching orders:", error);
         setError("Failed to fetch orders");
       } finally {
-        setLoading(false);
+        setLoading(false); // Set loading to false after the fetch attempt
       }
     };
 
-    fetchOrders();
-  }, [user]);
-
-  const handleClickReview = (orderId: string) => {
     if (user && user.id) {
-      router.push(`/order/ratings?orderId=${orderId}&userId=${user.id}`);
+      // This ensures that the fetch function only runs when user.id is defined
+      fetchOrders();
+    }
+  }, [user]); // Only run the effect when `user` changes
+
+  const handleClickReview = async (orderId: string, romId: string) => {
+    if (user && user.id) {
+      router.push(
+        `/order/ratings?orderId=${orderId}&userId=${user.id}&romId=${romId}`
+      );
+    } else {
+      console.log("No IDs found for this user.");
     }
   };
 
@@ -101,21 +112,27 @@ const OrderDetails = () => {
                 <TableCell>Rs.{order.totalAmount}</TableCell>
                 <TableCell>
                   {order.status === "Completed" ? (
-                    <Button onClick={() => handleClickReview(order._id)}>
-                      Review
-                    </Button>
-                  ) : (
-                    ""
-                  )}
+                    order.reviewed ? (
+                      <span className="text-gray-500">Reviewed</span>
+                    ) : (
+                      <Button
+                        onClick={() =>
+                          handleClickReview(order._id, order.romId)
+                        }
+                      >
+                        Review
+                      </Button>
+                    )
+                  ) : order.status === "Pending" ? (
+                    <span className="text-yellow-500">Pending</span>
+                  ) : null}
                 </TableCell>
               </TableRow>
             ))
           ) : (
             <TableRow>
-              <TableCell colSpan={10} className="text-center">
-                {orders.length === 0 && loading
-                  ? " No orders found"
-                  : "Loading..."}
+              <TableCell colSpan={8} className="text-center">
+                No orders found.
               </TableCell>
             </TableRow>
           )}

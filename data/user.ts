@@ -10,13 +10,3 @@ export const getUserByEmail = async (email: string) => {
     return null;
   }
 };
-
-export const getUserById = async (id: string) => {
-  try {
-    await connectMongo();
-    const user = await Users.findOne({ _id: id });
-    return user;
-  } catch {
-    return null;
-  }
-};
