@@ -59,8 +59,8 @@ function LoginFormContent() {
   }
 
   return (
-    <div className="flex justify-center">
-      <div className="bg-white p-6 rounded-lg shadow-lg w-auto">
+    <div className="flex justify-center p-4 sm:p-6 lg:p-8">
+      <div className="bg-white p-4 rounded-lg shadow-xl w-full max-w-md">
         <Form {...form}>
           <h2 className="flex justify-start text-3xl text-black font-bold py-2">
             Login
@@ -74,6 +74,7 @@ function LoginFormContent() {
                   <FormLabel>Email</FormLabel>
                   <FormControl>
                     <Input
+                      className="w-full"
                       placeholder="example@example.com"
                       {...field}
                       type="email"
@@ -90,7 +91,12 @@ function LoginFormContent() {
                 <FormItem>
                   <FormLabel>Password</FormLabel>
                   <FormControl>
-                    <Input type="password" placeholder="••••••••" {...field} />
+                    <Input
+                      className="w-full"
+                      type="password"
+                      placeholder="••••••••"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

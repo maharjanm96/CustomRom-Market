@@ -92,10 +92,10 @@ const SignupForm = () => {
   };
 
   return (
-    <div className="flex justify-center">
-      <div className="bg-white p-4 rounded-lg shadow-lg w-auto">
+    <div className="flex justify-center p-4 sm:p-6 lg:p-8">
+      <div className="bg-white p-4 rounded-lg shadow-xl w-full max-w-md">
         <Form {...form}>
-          <FormLabel className="flex justify-start text-2xl font-bold py-1">
+          <FormLabel className="text-2xl font-bold py-1">
             Create an account
           </FormLabel>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
@@ -106,7 +106,11 @@ const SignupForm = () => {
                 <FormItem>
                   <FormLabel>Name</FormLabel>
                   <FormControl>
-                    <Input placeholder="John Doe" {...field} />
+                    <Input
+                      className="w-full"
+                      placeholder="John Doe"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -119,7 +123,11 @@ const SignupForm = () => {
                 <FormItem>
                   <FormLabel>Contact</FormLabel>
                   <FormControl>
-                    <Input placeholder="98XXXXXXXX" {...field} />
+                    <Input
+                      className="w-full"
+                      placeholder="98XXXXXXXX"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -132,7 +140,11 @@ const SignupForm = () => {
                 <FormItem>
                   <FormLabel>Email</FormLabel>
                   <FormControl>
-                    <Input placeholder="example@example.com" {...field} />
+                    <Input
+                      className="w-full"
+                      placeholder="example@example.com"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -145,7 +157,12 @@ const SignupForm = () => {
                 <FormItem>
                   <FormLabel>Password</FormLabel>
                   <FormControl>
-                    <Input type="password" placeholder="••••••••" {...field} />
+                    <Input
+                      className="w-full"
+                      type="password"
+                      placeholder="••••••••"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
