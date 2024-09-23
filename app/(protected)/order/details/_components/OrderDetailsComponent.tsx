@@ -13,6 +13,7 @@ import axios from "axios";
 import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 interface Order {
   _id: string;
@@ -97,12 +98,18 @@ const OrderDetails = () => {
             orders.map((order) => (
               <TableRow key={order._id}>
                 <TableCell>
-                  <img
-                    src={order.deviceImage}
-                    alt={order.deviceName}
-                    width={50}
-                  />
-                  {order.deviceName}
+                  <div className="flex items-center">
+                    <Image
+                      src={order.deviceImage}
+                      alt={order.deviceName}
+                      width={50}
+                      height={50}
+                      objectFit="contain"
+                      className="rounded-md"
+                    />
+                    <span className="ml-2">{order.deviceName}</span>
+                    {/* Add margin for text spacing */}
+                  </div>
                 </TableCell>
                 <TableCell>{order.romName}</TableCell>
                 <TableCell>{user.name}</TableCell>

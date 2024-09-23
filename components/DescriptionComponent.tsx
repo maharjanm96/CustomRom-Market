@@ -171,8 +171,17 @@ const DeviceDetails = () => {
 
                         <div className="text-sm text-gray-500 mb-2">
                           Overall Sentiment Score:{" "}
-                          {rom.averageSentiment * 100 || 0}
-                          <Progress value={rom.averageSentiment * 100 || 0} />
+                          {(rom.averageSentiment
+                            ? rom.averageSentiment * 100
+                            : 0
+                          ).toFixed(2)}
+                          <Progress
+                            value={
+                              rom.averageSentiment
+                                ? rom.averageSentiment * 100
+                                : 0
+                            }
+                          />
                         </div>
 
                         <div className="mt-2 flex space-x-4">

@@ -20,6 +20,7 @@ import {
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+import Image from "next/image";
 
 interface Order {
   _id: string; // Changed to _id
@@ -115,15 +116,19 @@ const OrderDetailsComponent = () => {
           {orders.length > 0 ? (
             orders.map((order) => (
               <TableRow key={order._id}>
-                {" "}
-                {/* Use _id here */}
                 <TableCell>
-                  <img
-                    src={order.deviceImage}
-                    alt={order.deviceName}
-                    width={50}
-                  />
-                  {order.deviceName}
+                  <div className="flex items-center">
+                    <Image
+                      src={order.deviceImage}
+                      alt={order.deviceName}
+                      width={50}
+                      height={50}
+                      objectFit="contain"
+                      className="rounded-md"
+                    />
+                    <span className="ml-2">{order.deviceName}</span>
+                    {/* Add margin for text spacing */}
+                  </div>
                 </TableCell>
                 <TableCell>{order.romName}</TableCell>
                 <TableCell>{order.userName}</TableCell>
