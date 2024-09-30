@@ -4,6 +4,7 @@ import React from "react";
 import { TypewriterEffectSmooth } from "@/components/ui/Typewriter-effect";
 import Link from "next/link";
 import CustomButton from "../components/Buttons/Buttons";
+import { Button } from "./ui/button";
 
 const Home = () => {
   const words = [
@@ -44,21 +45,16 @@ const Home = () => {
     <div className="flex flex-col items-center justify-center h-[35rem]">
       <p className="text-black text-xl">The road to freedom starts from here</p>
       <TypewriterEffectSmooth words={words} />
-      <div className="lg:flex lg:flex-row sm:flex sm:flex-col sm:items-center sm:justify-center w-full flex gap-6 justify-center ">
+      <div className="grid gap-12">
         <Link href="/login">
-          <CustomButton
-            name="Login"
-            bgColor="bg-white"
-            textColor="text-black"
-          />
+          <Button variant="outline" className="w-44 rounded-sm">
+            Login
+          </Button>
         </Link>
-
         <Link href="/signup">
-          <CustomButton
-            name="SignUp"
-            bgColor="bg-black"
-            textColor="text-white"
-          />
+          <Button variant="default" className="w-44 rounded-sm">
+            Signup
+          </Button>
         </Link>
       </div>
     </div>

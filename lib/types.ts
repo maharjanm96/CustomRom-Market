@@ -8,15 +8,10 @@ export interface Device {
 }
 
 export type Rom = {
-  _id: string; // MongoDB ObjectId as a string
-  name: string; // ROM name
-  androidVersion: string; // Android version
+  _id: string;
+  name: string;
+  androidVersion: string;
   status: string;
-  averageRating?: number; // Add this line
-  averageSentiment?: number; // Add this line
+  averageRating?: number;
+  averageSentiment?: number;
 };
-
-interface SelectOption {
-  value: string;
-  label: string;
-}
