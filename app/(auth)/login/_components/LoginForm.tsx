@@ -19,6 +19,7 @@ import { login } from "@/actions/login";
 import { useSearchParams } from "next/navigation";
 import SocialButton from "@/components/Buttons/SocialButton";
 import { toast } from "sonner";
+import { CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 function LoginFormContent() {
   const searchParams = useSearchParams();
@@ -59,12 +60,29 @@ function LoginFormContent() {
   }
 
   return (
-    <div className="flex justify-center p-4 sm:p-6 lg:p-8">
-      <div className="bg-white p-4 rounded-lg shadow-xl w-full max-w-md">
+    <div className="flex justify-center m-4">
+      <div className=" p-4 rounded-md border-2 w-full max-w-sm">
+        <CardHeader className="space-y-1">
+          <CardTitle className="text-2xl">Login</CardTitle>
+          <CardDescription className="text-xs">
+            Enter your credentials to continue
+          </CardDescription>
+        </CardHeader>
+        <div className="grid grid-cols-2 gap-6 mb-2">
+          <SocialButton buttonText="Google" provider="google" />
+          <SocialButton buttonText="GitHub" provider="github" />
+        </div>
+        <div className="relative">
+          <div className="absolute inset-0 flex items-center">
+            <span className="w-full border-t" />
+          </div>
+          <div className="relative flex justify-center text-xs uppercase">
+            <span className="bg-background px-2 text-muted-foreground">
+              Or continue with
+            </span>
+          </div>
+        </div>
         <Form {...form}>
-          <h2 className="flex justify-start text-3xl text-black font-bold py-2">
-            Login
-          </h2>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             <FormField
               control={form.control}
@@ -102,7 +120,6 @@ function LoginFormContent() {
                 </FormItem>
               )}
             />
-
             <Button
               disabled={loading}
               variant={"default"}
@@ -111,24 +128,15 @@ function LoginFormContent() {
             >
               {loading ? "Logging in..." : "Login"}
             </Button>
-
             <span className="flex justify-center text-sm mt-4">
               Don&apos;t have an account?
             </span>
-
             <Link href="/signup">
               <span className="text-sm flex justify-center cursor-pointer underline">
                 Sign Up!
               </span>
             </Link>
-            <div className="flex justify-center text-sm text-gray-500">
-              or continue with
-            </div>
           </form>
-          <div className="flex flex-col gap-3">
-            <SocialButton buttonText={"Google"} provider={"google"} />
-            <SocialButton buttonText={"Github"} provider={"github"} />
-          </div>
         </Form>
       </div>
     </div>

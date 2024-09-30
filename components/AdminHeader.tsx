@@ -19,13 +19,17 @@ const Header = () => {
   };
 
   return (
-    <header className="flex justify-between p-8 px-20 bg-white">
+    <header className="flex justify-between items-center p-2 sm:p-2 lg:p-4 bg-white">
       <Link href="/">
-        <div className="flex items-center cursor-pointer">
-          <Image src="/assets/logo.png" alt="Logo" width={30} height={30} />
-          <span className="lg:text-xl font-medium px-2 sm:text-sm">
-            CustomRom Market
-          </span>
+        <div className="flex items-center cursor-pointer ml-14">
+          <Image
+            src="/assets/logo.png"
+            alt="Logo"
+            width={180}
+            height={180}
+            className="w-auto h-12 sm:h-16 lg:h-20"
+          />
+          <span className="lg:text-xl font-medium px-2 sm:text-base hidden sm:inline-block"></span>
         </div>
       </Link>
       <div className="md:hidden">

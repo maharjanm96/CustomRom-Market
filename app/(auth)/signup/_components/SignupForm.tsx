@@ -22,6 +22,7 @@ import Link from "next/link";
 import SocialButton from "@/components/Buttons/SocialButton";
 import { Icons } from "@/components/ui/icons";
 import { CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { signIn } from "next-auth/react";
 
 const signupSchema = z.object({
   name: z
@@ -103,14 +104,8 @@ const SignupForm = () => {
           </CardDescription>
         </CardHeader>
         <div className="grid grid-cols-2 gap-6 mb-2">
-          <Button variant="outline">
-            <Icons.gitHub className="mr-2 h-4 w-4" />
-            Github
-          </Button>
-          <Button variant="outline">
-            <Icons.google className="mr-2 h-4 w-4" />
-            Google
-          </Button>
+          <SocialButton buttonText="Google" provider="google" />
+          <SocialButton buttonText="GitHub" provider="github" />
         </div>
         <div className="relative">
           <div className="absolute inset-0 flex items-center">
@@ -196,18 +191,15 @@ const SignupForm = () => {
             <Button className="w-full rounded-sm" size="lg" disabled={loading}>
               {loading ? "Creating..." : "Create account"}
             </Button>
-            <span className="flex justify-center text-muted-foreground text-sm mt-4">
+            <span className="flex justify-center text-sm mt-4">
               Already have an account?
-              <Link href="/login">
-                <span className="cursor-pointer underline">Login!</span>
-              </Link>
             </span>
+            <Link href="/login">
+              <span className="text-sm flex justify-center cursor-pointer underline">
+                Login!
+              </span>
+            </Link>
           </form>
-
-          <div className="mt-2"></div>
-          <SocialButton buttonText={"Google"} provider={"google"} />
-          <div className="mt-2"></div>
-          <SocialButton buttonText="Github" provider="github" />
         </Form>
       </div>
     </div>

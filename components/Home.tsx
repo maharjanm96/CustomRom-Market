@@ -43,7 +43,7 @@ const Home = () => {
 
   return (
     <div className="flex flex-col items-center justify-center h-[35rem]">
-      <p className="text-black text-xl">The road to freedom starts from here</p>
+      <p className="text-black text-xl uppercase">The road to freedom starts from here</p>
       <TypewriterEffectSmooth words={words} />
       <div className="grid gap-12">
         <Link href="/login">

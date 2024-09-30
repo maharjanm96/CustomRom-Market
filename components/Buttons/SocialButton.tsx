@@ -1,6 +1,7 @@
 import { signIn } from "next-auth/react";
 import { FC } from "react";
-import { FaGoogle, FaGithub } from "react-icons/fa";
+import { Button } from "@/components/ui/button"; 
+import { Icons } from "@/components/ui/icons"; 
 
 interface ButtonWithLogoProps {
   buttonText: string;
@@ -11,9 +12,9 @@ const SocialButton: FC<ButtonWithLogoProps> = ({ buttonText, provider }) => {
   const renderLogo = () => {
     switch (provider) {
       case "google":
-        return <FaGoogle className="text-xl mr-2" />;
+        return <Icons.google className="mr-2 h-4 w-4" />;
       case "github":
-        return <FaGithub className="text-xl mr-2" />;
+        return <Icons.gitHub className="mr-2 h-4 w-4" />;
       default:
         return null;
     }
@@ -21,13 +22,14 @@ const SocialButton: FC<ButtonWithLogoProps> = ({ buttonText, provider }) => {
 
   return (
     <div>
-      <button
+      <Button
+        variant="outline"
         onClick={() => signIn(provider)}
-        className="bg-primary text-primary-foreground hover:bg-primary/90 w-full flex p-2.5 items-start justify-center rounded-md text-sm"
+        className="w-full flex p-2.5 items-start justify-center text-sm"
       >
         {renderLogo()}
         {buttonText}
-      </button>
+      </Button>
     </div>
   );
 };

@@ -19,16 +19,10 @@ const Header = () => {
   };
 
   return (
-    <header className="flex justify-between items-center p-2 sm:p-2 lg:p-4  bg-white">
+    <header className="flex justify-between items-center p-4 sm:p-2 lg:p-4 mb-8  bg-white">
       <Link href="/">
         <div className="flex items-center cursor-pointer ml-14">
-          <Image
-            src="/assets/logo.png"
-            alt="Logo"
-            width={100}
-            height={100}
-            className="w-auto h-12 sm:h-16 lg:h-20"
-          />
+          <Image src="/assets/logo.png" alt="Logo" width={180} height={180} />
           <span className="lg:text-xl font-medium px-2 sm:text-base hidden sm:inline-block"></span>
         </div>
       </Link>
@@ -46,28 +40,28 @@ const Header = () => {
       >
         <Link
           href="/dashboard"
-          className="flex items-center space-x-2 px-4 py-2 hover:text-blue-500 transition duration-200"
+          className="flex items-center space-x-2 px-4 py-2 hover:text-custom transition duration-200"
         >
           <FaHome style={{ fontSize: 20 }} />
           <span className="text-sm sm:text-base">Dashboard</span>
         </Link>
         <Link
           href="/device"
-          className="flex items-center space-x-2 px-4 py-2 hover:text-blue-500 transition duration-200"
+          className="flex items-center space-x-2 px-4 py-2 hover:text-custom transition duration-200"
         >
           <FaMobileAlt style={{ fontSize: 20 }} />
           <span className="text-sm sm:text-base">Devices</span>
         </Link>
         <Link
           href="/order/details"
-          className="flex items-center space-x-2 px-4 py-2 hover:text-blue-500 transition duration-200"
+          className="flex items-center space-x-2 px-4 py-2 hover:text-custom transition duration-200"
         >
           <FaShoppingCart style={{ fontSize: 20 }} />
           <span className="text-sm sm:text-base">My Orders</span>
         </Link>
         <Link
           href="/profile"
-          className="flex items-center space-x-2 px-4 py-2 hover:text-blue-500 transition duration-200"
+          className="flex items-center space-x-2 px-4 py-2 hover:text-custom transition duration-200"
         >
           <FaUser style={{ fontSize: 18 }} />
           <span className="text-sm sm:text-base">Profile</span>
