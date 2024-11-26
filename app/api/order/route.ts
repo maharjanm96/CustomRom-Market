@@ -67,10 +67,8 @@ export const GET = async () => {
     await connectMongo();
 
     if (user === "ADMIN") {
-      // Fetch all orders sorted by created date
-      const orders = await Orders.find().sort({ createdDate: -1 });
+      const orders = await Orders.find().sort({ orderDate: -1 });
 
-      // Enrich the orders with device and ROM details
       const enrichedOrders = await Promise.all(
         orders.map(async (order) => {
           try {

@@ -28,7 +28,7 @@ const DeviceDetails = () => {
   const analyzeFeedback = (feedback: string) => {
     const sentiment = new Sentiment();
     const result = sentiment.analyze(feedback);
-    return result.comparative; // Return the comparative score
+    return result.comparative;
   };
 
   const fetchRatings = async (romId: string) => {
@@ -106,27 +106,27 @@ const DeviceDetails = () => {
     router.push(`/order?userid=${user.id}&romid=${romId}&deviceid=${deviceId}`);
   };
 
-  if (loading) return <div className="text-center text-3xl">Loading...</div>;
+  if (loading) return <div className="text-center font-bold text-2xl">Loading...</div>;
   if (error) return <div>{error}</div>;
 
   return (
-    <div className="container mx-auto px-16 py-8">
+    <div className="container mx-auto px-16 py-8 flex gap-16 justify-evenly">
       {device && (
         <div className="flex flex-col md:flex-row">
           <div className="w-full md:w-1/3 flex justify-center mb-4 md:mb-0">
-            <div className="w-full border flex flex-col items-center border-gray-300 rounded-lg">
+            <div className="w-full border items-center border-slate-300 hover:border-custom rounded-lg">
               <Image
                 src={device.image}
                 alt={device.name}
                 width={400}
-                height={350}
-                className="object-contain p-6"
+                height={300}
+                className="object-contain p-2"
               />
             </div>
           </div>
           <div className="w-full md:w-2/3 md:pl-8">
             <div className="mb-4 flex justify-start items-center gap-3">
-              <h1 className="text-4xl font-bold mb-2">{device.name}</h1>
+              <h1 className="text-3xl font-bold mb-2">{device.name}</h1>
               <p className="text-sm bg-slate-200 min-w-10 text-custom font-semibold rounded-3xl px-3 ">
                 {device.codeName.toUpperCase()}
               </p>
@@ -141,7 +141,7 @@ const DeviceDetails = () => {
                   Available ROMs for {device.name}
                 </span>
               </div>
-              <div className="mt-4">
+              <div className="mt-4 w-3/4">
                 {roms.map((rom) => (
                   <div key={rom._id} className="mb-2">
                     <div
@@ -166,6 +166,7 @@ const DeviceDetails = () => {
                           <Rating
                             value={rom.averageRating || 0}
                             style={{ maxWidth: 200 }}
+                            readOnly
                           />
                         </div>
 

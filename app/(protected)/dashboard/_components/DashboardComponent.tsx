@@ -53,7 +53,7 @@ const DashboardComponent = () => {
 
         // Apply DBSCAN algorithm
         const dbscan = new DBSCAN();
-        const clusters = dbscan.run(soldData, 6, 1); // eps = 2, minPoints = 2
+        const clusters = dbscan.run(soldData, 10, 2); // eps = 2, minPoints = 2
         console.log("Clusters:", clusters);
 
         // Find the largest cluster (most popular ROMs)
@@ -62,12 +62,10 @@ const DashboardComponent = () => {
             cluster.length > clusters[largest].length ? index : largest,
           0
         );
-
-        // Filter the ROMs that belong to the largest cluster
-        const popular = clusters[largestClusterIndex].map(
+        const popular = clusters[largestClusterIndex]?.map(
           (index: number) => romData[index]
         );
-        setPopularRoms(popular);
+        setPopularRoms(popular || []);
       } catch (error) {
         console.error("Error fetching ROMs or applying DBSCAN:", error);
       }

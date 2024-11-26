@@ -2,30 +2,52 @@
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { useState } from "react";
-import axios from "axios";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
 import { toast } from "sonner";
+import axios from "axios";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { useState } from "react";
+
+const formSchema = z.object({
+  romName: z.string().min(1, { message: "ROM name is required" }),
+  androidVersion: z.string().min(2, { message: "Android version is required" }),
+});
 
 const AddRomComponent = () => {
-  const [romName, setRomName] = useState("");
-  const [androidVersion, setAndroidVersion] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const form = useForm({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      romName: "",
+      androidVersion: "",
+    },
+  });
+
+  // Handle form submission
+  const handleSubmit = async (values: z.infer<typeof formSchema>) => {
+    setLoading(true);
 
     try {
       const payload = {
-        name: romName,
-        androidVersion,
+        name: values.romName,
+        androidVersion: values.androidVersion,
       };
 
       const response = await axios.post("/api/admin/rom", payload);
 
       if (response.status === 201) {
         toast.success("New ROM Added");
-        setRomName("");
-        setAndroidVersion("");
+        form.reset();
       }
     } catch (error: any) {
       if (error.response) {
@@ -42,37 +64,62 @@ const AddRomComponent = () => {
         toast.error("Failed Adding ROM");
         console.error("Error adding ROM:", error.message);
       }
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div className="flex justify-center items-center">
-      <form onSubmit={handleSubmit} className="space-y-4 ">
-        <div>
-          <Label htmlFor="rom-name">ROM Name</Label>
-          <Input
-            id="rom-name"
-            type="text"
-            value={romName}
-            onChange={(e) => setRomName(e.target.value)}
-            placeholder="Enter ROM name"
-            required
-          />
-        </div>
-        <div>
-          <Label htmlFor="android-version">Android Version</Label>
-          <Input
-            id="android-version"
-            type="text"
-            value={androidVersion}
-            onChange={(e) => setAndroidVersion(e.target.value)}
-            placeholder="Enter Android Version"
-            required
-          />
-        </div>
+      <div className="rounded-lg shadow-xl p-8 w-2/6">
+        <span className="text-xl font-bold">Add a Rom</span>
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit(handleSubmit)}
+            className="space-y-4"
+          >
+            <FormField
+              control={form.control}
+              name="romName"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>ROM Name</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="Enter ROM name"
+                      {...field}
+                      className="w-full"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-        <Button type="submit">Submit</Button>
-      </form>
+            <FormField
+              control={form.control}
+              name="androidVersion"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Android Version</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="Enter Android version"
+                      {...field}
+                      className="w-full"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <Button type="submit" className="w-full" disabled={loading}>
+              {loading ? "Submitting..." : "Submit"}
+            </Button>
+          </form>
+        </Form>
+      </div>
     </div>
   );
 };

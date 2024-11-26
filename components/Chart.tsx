@@ -84,3 +84,4 @@ const LineChart: React.FC<LineChartProps> = ({ roms }) => {
 };
 
 export default LineChart;
+

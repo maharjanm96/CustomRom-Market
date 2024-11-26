@@ -22,13 +22,7 @@ const Header = () => {
     <header className="flex justify-between items-center p-2 sm:p-2 lg:p-4 bg-white">
       <Link href="/">
         <div className="flex items-center cursor-pointer ml-14">
-          <Image
-            src="/assets/logo.png"
-            alt="Logo"
-            width={180}
-            height={180}
-            className="w-auto h-12 sm:h-16 lg:h-20"
-          />
+          <Image src="/assets/logo.png" alt="Logo" width={180} height={180} />
           <span className="lg:text-xl font-medium px-2 sm:text-base hidden sm:inline-block"></span>
         </div>
       </Link>

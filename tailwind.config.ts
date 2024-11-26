@@ -37,7 +37,7 @@ const config: Config = {
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
       fontFamily: {
-        title: ["Open Sans", "sans-serif"],
+        title: ["Parkinsans", "sans-serif"],
       },
       borderRadius: {
         lg: "var(--radius)",

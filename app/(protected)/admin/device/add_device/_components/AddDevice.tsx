@@ -49,7 +49,6 @@ const DeviceForm = () => {
       codeName: "",
       androidVersion: "",
       image: "",
-      
     },
   });
 
@@ -80,9 +79,9 @@ const DeviceForm = () => {
 
   return (
     <div className="flex justify-center">
-      <div className="bg-white p-4 rounded-lg shadow-lg w-auto">
+      <div className="bg-white p-4 rounded-lg shadow-xl w-1/3 mt-10">
         <Form {...form}>
-          <FormLabel className="flex justify-start text-2xl font-bold py-1">
+          <FormLabel className="flex justify-start text-2xl font-bold">
             Add Device
           </FormLabel>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
@@ -93,7 +92,11 @@ const DeviceForm = () => {
                 <FormItem>
                   <FormLabel>Device Name</FormLabel>
                   <FormControl>
-                    <Input placeholder="Nothing Phone" {...field} />
+                    <Input
+                      placeholder="Nothing Phone"
+                      {...field}
+                      className="w-full"
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -106,7 +109,11 @@ const DeviceForm = () => {
                 <FormItem>
                   <FormLabel>Code Name</FormLabel>
                   <FormControl>
-                    <Input placeholder="beryllium" {...field} />
+                    <Input
+                      placeholder="beryllium"
+                      {...field}
+                      className="w-full"
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -119,7 +126,7 @@ const DeviceForm = () => {
                 <FormItem>
                   <FormLabel>Android Version</FormLabel>
                   <FormControl>
-                    <Input placeholder="14" {...field} />
+                    <Input placeholder="14" {...field} className="w-full" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -134,6 +141,7 @@ const DeviceForm = () => {
                   <FormControl>
                     <Input
                       placeholder="https://example.com/image.jpg"
+                      className="w-full"
                       {...field}
                     />
                   </FormControl>
